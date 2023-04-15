@@ -17,9 +17,9 @@ public class MazeGenerator : MonoBehaviour
     private GameObject[] m_TilePool;
     private GameObject[] m_WallPool;
 
-    public int Widht => this.m_Width;
+    public int Width => this.m_Width;
     public int Height => this.m_Height;
-
+    
     private void Start()
     {
         int cellCount = this.m_Width * this.m_Height;
@@ -143,7 +143,7 @@ public class MazeGenerator : MonoBehaviour
         this.transform.position = new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
         // this.Seed = (uint)UnityEngine.Random.Range(0, 1000000);
     }
-
+    
     public void PlaceObject(Object obj, int x, int y)
     {
         
