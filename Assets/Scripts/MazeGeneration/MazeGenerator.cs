@@ -27,13 +27,7 @@ public class MazeGenerator : MonoBehaviour
         int cellCount = this.m_Width * this.m_Height;
         int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
 
-        // this.m_TilePool = new GameObject[cellCount * 5];
         this.m_WallPool = new GameObject[wallCount];
-
-        // for (int t = 0; t < this.m_TilePool.Length; t++)
-        // {
-            // this.m_TilePool[t] = Object.Instantiate(this.m_TilePrefab, this.transform);
-        // }
 
         this.m_Tile = Object.Instantiate(this.m_TilePrefab, this.transform);
 
