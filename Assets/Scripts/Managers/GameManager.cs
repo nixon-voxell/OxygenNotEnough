@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.Mathematics;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
@@ -73,5 +74,11 @@ public class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         Instance = null;
+    }
+    public void Restart()
+    {
+        this.m_GameState = GameState.Lose;
+        SceneManager.LoadScene(0);
+
     }
 }
