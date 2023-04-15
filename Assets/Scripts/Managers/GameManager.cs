@@ -19,26 +19,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Volume m_GlobalVolume;
     [SerializeField] private float m_VigAnimaSpeed;
     [SerializeField] private MazeGenerator m_MazeGenerator;
+    [SerializeField] private Player m_PlayerPrefab;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
     private GameState m_GameState;
+    private Player m_Player;
 
     public Camera MainCamera => this.m_MainCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
     public Vignette Vignette => this.m_Vignette;
     public MazeGenerator MazeGenerator => this.m_MazeGenerator;
     public GameState GameState => this.m_GameState;
+    public Player Player => this.m_Player;
 
     private void Awake()
     {
-        // default to idle (main menu)
-        this.m_GameState = GameState.Idle;
-        if (!this.m_GlobalVolume.profile.TryGet<Vignette>(out this.m_Vignette))
-        {
-            Debug.LogWarning("Vignette post-process override not found");
-        }
-
         if (Instance == null)
         {
             Instance = this;
@@ -46,6 +42,16 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("There is probably more than one instance.", Instance);
             Object.Destroy(this);
+        }
+
+        this.m_Player = Object.Instantiate(this.m_PlayerPrefab);
+        this.MazeGenerator.PlaceObject(this.m_Player.transform, 0, 0);
+
+        // default to idle (main menu)
+        this.m_GameState = GameState.Idle;
+        if (!this.m_GlobalVolume.profile.TryGet<Vignette>(out this.m_Vignette))
+        {
+            Debug.LogWarning("Vignette post-process override not found");
         }
     }
 
