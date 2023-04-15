@@ -5,18 +5,18 @@ using UnityEngine.UI;
 
 public class Oxygen : MonoBehaviour
 {
-    public Slider slider;
-    public Gradient gradient;
-    public Image fill;
+    public Slider Slider;
+    public Gradient Gradient;
+    public Image Fill;
     public void SetMaxO2(float health){
-        slider.maxValue = health;
-        slider.value = health;
+        Slider.maxValue = health;
+        Slider.value = health;
 
-        fill.color = gradient.Evaluate(1f); 
+        Fill.color = Gradient.Evaluate(1f); 
     }
     public void SetHealth(float health){
-        slider.value = health;
-        fill.color = gradient.Evaluate(slider.normalizedValue);
+        Slider.value = health;
+        Fill.color = Gradient.Evaluate(Slider.normalizedValue);
     }
 
 
