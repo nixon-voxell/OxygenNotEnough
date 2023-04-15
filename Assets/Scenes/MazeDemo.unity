@@ -759,7 +759,7 @@ Transform:
   m_GameObject: {fileID: 1031244474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 1, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1966802122}
@@ -1360,4 +1360,4 @@ MonoBehaviour:
   m_Seed: 1
   m_TilePrefab: {fileID: 123706103}
   m_WallPrefab: {fileID: 1031244474}
-  m_WallPercentage: 0.684
+  m_WallPercentage: 1

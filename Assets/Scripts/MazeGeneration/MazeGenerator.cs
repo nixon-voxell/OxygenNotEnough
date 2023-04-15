@@ -22,7 +22,7 @@ public class MazeGenerator : MonoBehaviour
         int cellCount = this.m_Width * this.m_Height;
         int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
 
-        this.m_TilePool = new GameObject[cellCount];
+        this.m_TilePool = new GameObject[cellCount * 5];
         this.m_WallPool = new GameObject[wallCount];
 
         for (int t = 0; t < this.m_TilePool.Length; t++)
@@ -65,19 +65,17 @@ public class MazeGenerator : MonoBehaviour
 
         int tilePoolIdx = 0;
 
-        for (int x = 0; x < this.m_Width; x++)
+        for (int x = 0; x < this.m_Width * 2 + 1; x++)
         {
-            for (int y = 0; y < this.m_Height; y++)
+            for (int y = 0; y < this.m_Height * 2 + 1; y++)
             {
-                // int flattenIdx = MazeUtil.FlattenIndex(x, y, this.Width);
-                // this.Tiles[flattenIdx] =
-                Vector3 position = new Vector3(x, 0.0f, y);
+                Vector3 localPosition = new Vector3(x, 0.0f, y);
                 Quaternion rotation = Quaternion.identity;
 
                 GameObject tile = this.m_TilePool[tilePoolIdx++];
                 tile.SetActive(true);
                 Transform tileTransform = tile.transform;
-                tileTransform.position = position;
+                tileTransform.localPosition = localPosition;
                 tileTransform.rotation =  rotation;
             }
         }
@@ -93,7 +91,8 @@ public class MazeGenerator : MonoBehaviour
 
                 if (na_wallStates[wallIdx] == false)
                 {
-                    Vector3 position = new Vector3(x + 0.5f, 1.0f, y);
+                    Vector3 localPosition = new Vector3(x * 2.0f + 1.0f, 1.0f, y * 2.0f);
+                    localPosition += new Vector3(1.0f, 0.0f, 1.0f);
                     Quaternion rotation = Quaternion.identity;
 
                     float probability = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -102,7 +101,7 @@ public class MazeGenerator : MonoBehaviour
                     GameObject wall = this.m_WallPool[wallPoolIdx++];
                     wall.SetActive(true);
                     Transform wallTransform = wall.transform;
-                    wallTransform.position = position;
+                    wallTransform.localPosition = localPosition;
                     wallTransform.rotation = rotation;
                 }
             }
@@ -118,7 +117,8 @@ public class MazeGenerator : MonoBehaviour
 
                 if (na_wallStates[wallIdx] == false)
                 {
-                    Vector3 position = new Vector3(x, 1.0f, y + 0.5f);
+                    Vector3 localPosition = new Vector3(x * 2.0f, 1.0f, y * 2.0f + 1.0f);
+                    localPosition += new Vector3(1.0f, 0.0f, 1.0f);
                     Quaternion rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
 
                     float probability = UnityEngine.Random.Range(0.0f, 1.0f);
@@ -127,7 +127,7 @@ public class MazeGenerator : MonoBehaviour
                     GameObject wall = this.m_WallPool[wallPoolIdx++];
                     wall.SetActive(true);
                     Transform wallTransform = wall.transform;
-                    wallTransform.position = position;
+                    wallTransform.position = localPosition;
                     wallTransform.rotation = rotation;
                 }
             }
@@ -135,6 +135,9 @@ public class MazeGenerator : MonoBehaviour
 
         na_cellStates.Dispose();
         na_wallStates.Dispose();
+
+        // center the maze
+        this.transform.position = new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
         // this.Seed = (uint)UnityEngine.Random.Range(0, 1000000);
     }
 
