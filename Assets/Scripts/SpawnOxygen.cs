@@ -6,11 +6,13 @@ public class SpawnOxygen : MonoBehaviour
 {
     public GameObject cubePrefab;
     private GameManager gameManager;
+
     void Start()
     {
         gameManager = GameManager.Instance;
         SpawnCube(1);
     }
+
     public void SpawnCube(int times)
     {
         int width = gameManager.MazeGenerator.Width;
@@ -21,5 +23,4 @@ public class SpawnOxygen : MonoBehaviour
             Instantiate(cubePrefab, randomSpawnpos,Quaternion.identity);
         }
     }
-    
 }
