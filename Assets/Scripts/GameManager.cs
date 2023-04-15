@@ -4,6 +4,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [SerializeField] private Camera m_MainCamera;
+
+    public Camera MainCamera => this.m_MainCamera;
+
     private void Awake()
     {
         if (Instance == null)
