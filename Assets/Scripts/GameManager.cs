@@ -8,12 +8,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private Volume m_GlobalVolume;
+    [SerializeField] private MazeGenerator m_MazeGenerator;
 
     private Vignette m_Vignette;
 
     public Camera MainCamera => this.m_MainCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
     public Vignette Vignette => this.m_Vignette;
+    public MazeGenerator MazeGenerator => this.m_MazeGenerator;
 
     private void Awake()
     {

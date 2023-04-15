@@ -694,7 +694,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031244474}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 67244c5d62c64ec428d5a352a5eed6c2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -758,8 +758,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031244474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 3}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 1, z: 2.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1966802122}
@@ -785,7 +785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1062755685
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -809,7 +809,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062755684}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 67244c5d62c64ec428d5a352a5eed6c2, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
@@ -874,7 +874,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062755684}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -893,10 +893,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca0a263aa359a514a97a44fb94ad5ba7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_rb: {fileID: 1062755685}
+  m_speed: 5
+  m_PercentageDamage: 10
   maxHealth: 100
   currentHealth: 0
-  healthBar: {fileID: 1644106016}
-  timeRemaining: 10
+  HealthBar: {fileID: 1644106016}
 --- !u!1 &1421116432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,19 +1180,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 578aeaf392b6dfa489754324802fefe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slider: {fileID: 1644106017}
-  gradient:
+  Slider: {fileID: 1644106017}
+  Gradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.9968063, b: 0, a: 1}
-    key2: {r: 0, g: 1, b: 0.12673235, a: 0}
-    key3: {r: 0, g: 1, b: 0.12673235, a: 0}
+    key0: {r: 1, g: 0.026133025, b: 0, a: 1}
+    key1: {r: 1, g: 0.9916909, b: 0, a: 1}
+    key2: {r: 0.15044188, g: 1, b: 0, a: 0}
+    key3: {r: 1, g: 1, b: 1, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 13107
-    ctime1: 32768
+    ctime1: 39321
     ctime2: 65535
     ctime3: 65535
     ctime4: 0
@@ -1208,7 +1210,7 @@ MonoBehaviour:
     m_Mode: 1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
-  fill: {fileID: 1455840875}
+  Fill: {fileID: 1455840875}
 --- !u!114 &1644106017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,7 +1359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Width: 10
   m_Height: 10
-  m_Seed: 1
+  m_Seed: 68
   m_TilePrefab: {fileID: 123706103}
   m_WallPrefab: {fileID: 1031244474}
   m_WallPercentage: 1
