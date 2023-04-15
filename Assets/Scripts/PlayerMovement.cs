@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public float maxHealth = 100f;
 	public float currentHealth;
 	public Oxygen HealthBar;
-
     void Start()
     {
         m_rb = GetComponent<Rigidbody>();
@@ -30,10 +29,10 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
         bool isMoving = Mathf.Abs(horizontalInput) > 0.0f || Mathf.Abs(verticalInput) > 0.0f;
 
-        if(Input.GetButton("Jump"))
-        {
-            m_rb.velocity = new Vector3(m_rb.velocity.x, 5f, m_rb.velocity.z);
-        }
+        // if(Input.GetButton("Jump"))
+        // {
+        //     m_rb.velocity = new Vector3(m_rb.velocity.x, 5f, m_rb.velocity.z);
+        // }
         
         if(Input.GetButton("Crouch"))
         {
@@ -65,20 +64,24 @@ public class PlayerMovement : MonoBehaviour
 	}
 
     // heath
-    private void OnCollisionEnter(Collision collision){
-        if(collision.gameObject.CompareTag("Oxygen")){
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Oxygen"))
+        {
             // Debug.Log("Oxygen get");
             Destroy(collision.gameObject);
-            AddHealth(20f);
+            AddHealth(50f);
         }
     }
-    void Crouch(){
+    void Crouch()
+    {
         isCrouch = true;
         // percentage_Damage = 0.01f;
         m_speed = crouchSpeed;
 
     }
-    void StandUp(){
+    void StandUp()
+    {
         isCrouch = false;
         // percentage_Damage = 0.05f;
         m_speed = 5f;
