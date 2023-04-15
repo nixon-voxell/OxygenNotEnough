@@ -10,10 +10,9 @@ public class PlayerMovement : MonoBehaviour
     float speed = 5f;
     
     // oxygen part
-    public int maxHealth = 100;
-	public int currentHealth;
+    public float maxHealth = 100f;
+	public float currentHealth;
 	public Oxygen healthBar;
-    public float timeRemaining = 100;
 
     void Start()
     {
@@ -30,21 +29,35 @@ public class PlayerMovement : MonoBehaviour
         float verticalInput = Input.GetAxis("Vertical");
 
         rb.velocity = new Vector3(horizontalInput*5f,rb.velocity.y,verticalInput*speed);
-
+        
+        TakeDamage(Mathf.Abs(horizontalInput)*0.05f);
+        
         if(Input.GetButton("Jump")){
             rb.velocity = new Vector3(rb.velocity.x,5f,rb.velocity.z);
         }
         
-        if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-            TakeDamage(20);
-        }
     }
-    
-    void TakeDamage(int damage)
+    public void TakeDamage(float damage)
 	{
 		currentHealth -= damage;
 		healthBar.SetHealth(currentHealth);
 	}
+    public void AddHealth(float health)
+	{
+		currentHealth += health;
+		healthBar.SetHealth(currentHealth);
+	}
+    // heath
+    private void OnCollisionEnter(Collision collision){
+        if(collision.gameObject.CompareTag("Oxygen")){
+            Debug.Log("Oxygen get");
+            Destroy(collision.gameObject);
+            AddHealth(20f);
+
+        }
+        else{
+            Debug.Log("Didnt get oxygen");
+        }
+    }
+
 }

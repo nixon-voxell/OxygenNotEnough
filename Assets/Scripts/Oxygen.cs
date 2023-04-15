@@ -8,14 +8,16 @@ public class Oxygen : MonoBehaviour
     public Slider slider;
     public Gradient gradient;
     public Image fill;
-    public void SetMaxO2(int health){
+    public void SetMaxO2(float health){
         slider.maxValue = health;
         slider.value = health;
 
         fill.color = gradient.Evaluate(1f); 
     }
-    public void SetHealth(int health){
+    public void SetHealth(float health){
         slider.value = health;
         fill.color = gradient.Evaluate(slider.normalizedValue);
     }
+
+
 }
