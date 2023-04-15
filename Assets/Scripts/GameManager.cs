@@ -3,6 +3,14 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.Mathematics;
 
+public enum GameState
+{
+    Idle,
+    InProgress,
+    Win,
+    Lose,
+}
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
@@ -14,15 +22,23 @@ public class GameManager : MonoBehaviour
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
+    private GameState m_GameState;
 
     public Camera MainCamera => this.m_MainCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
     public Vignette Vignette => this.m_Vignette;
     public MazeGenerator MazeGenerator => this.m_MazeGenerator;
+    public GameState GameState => this.m_GameState;
 
     private void Awake()
     {
-        this.m_GlobalVolume.profile.TryGet<Vignette>(out this.m_Vignette);
+        // default to idle (main menu)
+        this.m_GameState = GameState.Idle;
+        if (!this.m_GlobalVolume.profile.TryGet<Vignette>(out this.m_Vignette))
+        {
+            Debug.LogWarning("Vignette post-process override not found");
+        }
+
         if (Instance == null)
         {
             Instance = this;
