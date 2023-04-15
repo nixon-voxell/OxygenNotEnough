@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
 
     public void RemoveOxygen(float oxygen)
     {
-        this.SetOxygen(this.m_CurrOxygen - oxygen);
+        if(this.m_CurrOxygen>0.0f)
+            this.SetOxygen(this.m_CurrOxygen - oxygen);
     }
 
     public void AddOxygen(float oxygen)
@@ -45,11 +46,11 @@ public class Player : MonoBehaviour
     }
 
     // heath
-    private void OnCollisionEnter(Collision collision)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if (collision.gameObject.CompareTag("Oxygen"))
+        if (hit.gameObject.CompareTag("Oxygen"))
         {
-            Destroy(collision.gameObject);
+            Destroy(hit.gameObject);
             // TODO: add base on variable
             this.AddOxygen(20.0f);
         }
