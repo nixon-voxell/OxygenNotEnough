@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float m_PercentageDamage = 0.05f;
     [Header("Status")]
     private bool isCrouch=false;
+    private bool grounded = false;
+    private float groundCheckDistance;
+    private float bufferCheckDistance = 0.1f;
     [Header("Health")]
     // oxygen part
     public float maxHealth = 100f;
