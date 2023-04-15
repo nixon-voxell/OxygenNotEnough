@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
     public float CurrHealth => this.m_CurrOxygen;
 
+    public GameOverMenu gameOver;
+
     private void Start()
     {
         m_CurrOxygen = m_MaxOxygen;
@@ -30,10 +32,10 @@ public class Player : MonoBehaviour
 
     public void RemoveOxygen(float oxygen)
     {
-        if(this.m_CurrOxygen>0.0f)
+        if (this.m_CurrOxygen > 0.0f)
             this.SetOxygen(this.m_CurrOxygen - oxygen);
         else
-            GameManager.Instance.Restart();
+            gameOver.Gameover();    
     }
 
     public void AddOxygen(float oxygen)

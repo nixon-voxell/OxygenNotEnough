@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving => this.m_IsMoving;
     public bool IsCrouching => this.m_IsCrouching;
 
+    public GameOverMenu gameOver;
+
     void Start()
     {
         this.m_IsCrouching = false;
@@ -41,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else{
             // Debug.Log("dead");
-            GameManager.Instance.Restart();
+            gameOver.Gameover();
 
         }
     }
