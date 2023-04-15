@@ -75,4 +75,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
 
     }
+    public void Won(){
+        this.m_GameState = GameState.Win;
+        SceneManager.LoadScene(0);
+    }
 }

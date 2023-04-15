@@ -65,5 +65,9 @@ public class Player : MonoBehaviour
             this.AddOxygen(20.0f);
             this.m_SpawnOxygen.SpawnCube(1);
         }
+        else if (hit.gameObject.CompareTag("Exit"))
+        {
+            Debug.Log("won");
+        }
     }
 }

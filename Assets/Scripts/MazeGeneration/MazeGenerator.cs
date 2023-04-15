@@ -21,6 +21,8 @@ public class MazeGenerator : MonoBehaviour
     public int Height => this.m_Height;
     public Vector3 MapOffset => new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
 
+    // exit
+    [SerializeField] private GameObject m_Exit;
     private void Start()
     {
         int cellCount = this.m_Width * this.m_Height;
@@ -164,5 +166,10 @@ public class MazeGenerator : MonoBehaviour
         {
             this.m_WallPool[w].SetActive(false);
         }
+    }
+    public void SetSize(Transform trans, float x, float y,float z)
+    {
+        Vector3 scale = new Vector3(x, y, z);
+        trans.localScale  = scale;    
     }
 }
