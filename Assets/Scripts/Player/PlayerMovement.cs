@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController m_CharController;
     [SerializeField] private float m_WalkSpeed = 5.0f;
     [SerializeField] private float m_CrouchSpeed = 2.0f;
-
+    [SerializeField] private float m_rotationSpeed = 720f;
     private bool m_IsMoving;
     private bool m_IsCrouching;
     private float groundCheckDistance;
@@ -37,10 +37,10 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
         if(Physics.Raycast(transform.position,-transform.up,out hit,groundCheckDistance)){
-            Debug.Log("on ground");
+            // Debug.Log("on ground");
         }
         else{
-            Debug.Log("dead");
+            // Debug.Log("dead");
             GameManager.Instance.Restart();
 
         }
@@ -53,6 +53,13 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput);
         moveDirection.Normalize();
+
+        transform.Translate(moveDirection*m_WalkSpeed*Time.deltaTime,Space.World);
+        if(moveDirection!=Vector3.zero)
+        {
+            Quaternion torotation = Quaternion.LookRotation(moveDirection,Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation,torotation,m_rotationSpeed*Time.deltaTime);
+        }
 
         this.m_IsMoving = moveDirection.sqrMagnitude > 0.0f;
         this.m_IsCrouching = Input.GetButton("Crouch");
