@@ -110,4 +110,8 @@ public class GameManager : MonoBehaviour
         this.m_GameState = GameState.Lose;
         SceneManager.LoadScene(1);
     }
+    public void Won(){
+        this.m_GameState = GameState.Win;
+        SceneManager.LoadScene(0);
+    }
 }
