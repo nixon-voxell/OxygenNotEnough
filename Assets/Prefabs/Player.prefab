@@ -121,6 +121,7 @@ MonoBehaviour:
   m_WalkSpeed: 5
   m_CrouchSpeed: 2
   m_rotationSpeed: 720
+  OxygenTank: {fileID: 3910701879105309532, guid: 212d9733963bb2c4b9bcd131bafe7da3, type: 3}
 --- !u!114 &5690460127823894164
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,6 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerMovement m_PlayerMovement;
-    [SerializeField] private SpawnOxygen m_SpawnOxygen;
 
     [SerializeField] private float m_MaxOxygen = 100f;
     [SerializeField] private float m_CurrOxygen;
@@ -14,7 +13,7 @@ public class Player : MonoBehaviour
     {
         m_CurrOxygen = m_MaxOxygen;
         UIManager.Instance.OxygenUI.SetMaxO2(m_MaxOxygen);
-        m_SpawnOxygen.SpawnCube(1);
+        GameManager.Instance.SpawnOxygen.SpawnCube(1);
     }
 
     private void Update()
@@ -62,7 +61,7 @@ public class Player : MonoBehaviour
             // Destroy(hit.gameObject);
             // TODO: add base on variable
             this.AddOxygen(20.0f);
-            this.m_SpawnOxygen.SpawnCube(1);
+            GameManager.Instance.SpawnOxygen.SpawnCube(1);
         }
     }
 }

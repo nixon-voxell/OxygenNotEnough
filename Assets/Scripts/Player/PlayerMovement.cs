@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections;
+
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -14,22 +14,11 @@ public class PlayerMovement : MonoBehaviour
     public bool IsMoving => this.m_IsMoving;
     public bool IsCrouching => this.m_IsCrouching;
 
-    [SerializeField] GameObject OxygenTank;
-
 
     void Start()
     {
         this.m_IsCrouching = false;
         this.m_IsMoving = false;
-
-        StartCoroutine(WaitForShow());
-
-    }
-
-    IEnumerator WaitForShow()
-    {
-        yield return new WaitForSeconds(1);
-        OxygenTank.SetActive(false);
     }
 
     public void Move(Vector3 moveDirection)

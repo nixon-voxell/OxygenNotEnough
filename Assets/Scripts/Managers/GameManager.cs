@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float m_VigAnimaSpeed;
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Player m_PlayerPrefab;
+    [SerializeField] private SpawnOxygen m_SpawnOxygen;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     public MazeGenerator MazeGenerator => this.m_MazeGenerator;
     public GameState GameState => this.m_GameState;
     public Player Player => this.m_Player;
+    public SpawnOxygen SpawnOxygen => this.m_SpawnOxygen;
 
     private void Awake()
     {
