@@ -4,23 +4,18 @@ using UnityEngine;
 
 public class SpawnOxygen : MonoBehaviour
 {
-    public GameObject cubePrefab;
     private GameManager gameManager;
-
-    void Start()
-    {
-        gameManager = GameManager.Instance;
-        SpawnCube(1);
-    }
+    [SerializeField] private MazeGenerator m_MazeGenerator;
+    private int width;
+    private int height;
 
     public void SpawnCube(int times)
     {
-        int width = gameManager.MazeGenerator.Width;
-        int height = gameManager.MazeGenerator.Height;
+        width = Random.Range(0,GameManager.Instance.MazeGenerator.Width);
+        height = Random.Range(0,GameManager.Instance.MazeGenerator.Height);
         for (int i = 0; i <times;i++)
         {
-            Vector3 randomSpawnpos = new Vector3(Random.Range(-width,height+1),1,Random.Range(-width,height+1));
-            Instantiate(cubePrefab, randomSpawnpos,Quaternion.identity);
+            this.m_MazeGenerator.PlaceObject(this.transform, width,height);
         }
     }
 }

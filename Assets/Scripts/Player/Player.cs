@@ -3,17 +3,18 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private PlayerMovement m_PlayerMovement;
+    [SerializeField] private SpawnOxygen m_SpawnOxygen;
 
     [SerializeField] private float m_MaxOxygen = 100f;
     [SerializeField] private float m_CurrOxygen;
     [SerializeField] private float m_DamagePerSecond;
-
     public float CurrHealth => this.m_CurrOxygen;
 
     private void Start()
     {
         m_CurrOxygen = m_MaxOxygen;
         UIManager.Instance.OxygenUI.SetMaxO2(m_MaxOxygen);
+        m_SpawnOxygen.SpawnCube(1);
     }
 
     private void Update()
@@ -37,7 +38,14 @@ public class Player : MonoBehaviour
 
     public void AddOxygen(float oxygen)
     {
-        this.SetOxygen(this.m_CurrOxygen + oxygen);
+        if(this.m_CurrOxygen>100.0f)
+        {
+            this.m_CurrOxygen=100.0f;
+            this.SetOxygen(100.0f);
+        }
+
+        else
+            this.SetOxygen(this.m_CurrOxygen + oxygen);
     }
 
     public void SetOxygen(float oxygen)
@@ -51,9 +59,10 @@ public class Player : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Oxygen"))
         {
-            Destroy(hit.gameObject);
+            // Destroy(hit.gameObject);
             // TODO: add base on variable
             this.AddOxygen(20.0f);
+            this.m_SpawnOxygen.SpawnCube(1);
         }
     }
 }
