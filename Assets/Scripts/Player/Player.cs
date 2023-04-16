@@ -35,7 +35,8 @@ public class Player : MonoBehaviour
         if (this.m_CurrOxygen > 0.0f)
             this.SetOxygen(this.m_CurrOxygen - oxygen);
         else
-            gameOver.Gameover();    
+            gameOver.Gameover(); 
+
     }
 
     public void AddOxygen(float oxygen)
