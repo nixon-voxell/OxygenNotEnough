@@ -21,12 +21,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float m_VigAnimaSpeed;
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Player m_PlayerPrefab;
+
+    [Header("Enemy")]
+    [SerializeField] private Enemy m_EnemyPrefab;
+    [SerializeField] private int m_EnemyCount;
+
     [SerializeField] private SpawnOxygen m_SpawnOxygen;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
     private GameState m_GameState;
     private Player m_Player;
+    private Enemy[] m_Enemies;
 
     public Camera MainCamera => this.m_MainCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
@@ -47,8 +53,29 @@ public class GameManager : MonoBehaviour
             Object.Destroy(this);
         }
 
+        UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
+        this.MazeGenerator.GenerateMaze();
+
+        // spawn player
         this.m_Player = Object.Instantiate(this.m_PlayerPrefab);
+
         this.MazeGenerator.PlaceObject(this.m_Player.transform, 0, 0);
+        Vector3 playerPos = this.m_Player.transform.position;
+        playerPos.y = 0.5f;
+        this.m_Player.transform.position = playerPos;
+
+        // spawn enemy
+        this.m_Enemies = new Enemy[this.m_EnemyCount];
+        for (int e = 0; e < this.m_EnemyCount; e++)
+        {
+            this.m_Enemies[e] = Object.Instantiate(this.m_EnemyPrefab);
+
+            int x, y;
+            this.MazeGenerator.GetRandomGridPosition(out x, out y);
+            this.MazeGenerator.PlaceObject(this.m_Enemies[e].gameObject.transform, x, y);
+            Vector3 enemyPos = this.m_Enemies[e].transform.position;
+            this.m_Enemies[e].MoveToTarget(enemyPos);
+        }
 
         // default to idle (main menu)
         this.m_GameState = GameState.Idle;
@@ -77,10 +104,10 @@ public class GameManager : MonoBehaviour
     {
         Instance = null;
     }
+
     public void Restart()
     {
         this.m_GameState = GameState.Lose;
         SceneManager.LoadScene(1);
-
     }
 }

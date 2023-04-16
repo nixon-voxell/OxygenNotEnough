@@ -15,14 +15,20 @@ public class MazeGenerator : MonoBehaviour
 
     [SerializeField, Range(0.0f, 1.0f)] private float m_WallPercentage;
 
-    [SerializeField] private GameObject m_Tile;
+    private GameObject m_Tile;
     private GameObject[] m_WallPool;
 
     public int Width => this.m_Width;
     public int Height => this.m_Height;
     public Vector3 MapOffset => new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
 
-    private void Start()
+    public void GetRandomGridPosition(out int x, out int y)
+    {
+        x = UnityEngine.Random.Range(0, this.Width);
+        y = UnityEngine.Random.Range(0, this.Height);
+    }
+
+    public void GenerateMaze()
     {
         int cellCount = this.m_Width * this.m_Height;
         int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
@@ -37,13 +43,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         this.HideAll();
-        this.GenerateMaze();
-    }
 
-    public void GenerateMaze()
-    {
-        int cellCount = this.m_Width * this.m_Height;
-        int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
         int verticalWallStartIdx = (this.m_Width - 1) * this.m_Height;
 
         // clear memory to make sure that all initial data is false
@@ -130,7 +130,7 @@ public class MazeGenerator : MonoBehaviour
 
         // center the maze
         this.transform.position = new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
-        // this.Seed = (uint)UnityEngine.Random.Range(0, 1000000);
+        this.m_Seed = (uint)UnityEngine.Random.Range(0, 1000000);
     }
 
     public void PlaceObject(Transform trans, int x, int y)

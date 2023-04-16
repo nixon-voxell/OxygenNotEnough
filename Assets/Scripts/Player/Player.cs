@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     {
         m_CurrOxygen = m_MaxOxygen;
         UIManager.Instance.OxygenUI.SetMaxO2(m_MaxOxygen);
-        GameManager.Instance.SpawnOxygen.SpawnCube(1);
     }
 
     private void Update()
@@ -31,23 +30,12 @@ public class Player : MonoBehaviour
 
     public void RemoveOxygen(float oxygen)
     {
-        if (this.m_CurrOxygen > 0.0f)
-            this.SetOxygen(this.m_CurrOxygen - oxygen);
-        else
-            gameOver.Gameover(); 
-
+        this.SetOxygen(Mathf.Max(this.m_CurrOxygen - oxygen, 0.0f));
     }
 
     public void AddOxygen(float oxygen)
     {
-        if(this.m_CurrOxygen>100.0f)
-        {
-            this.m_CurrOxygen=100.0f;
-            this.SetOxygen(100.0f);
-        }
-
-        else
-            this.SetOxygen(this.m_CurrOxygen + oxygen);
+        this.SetOxygen(Mathf.Min(this.m_CurrOxygen + oxygen, 100.0f));
     }
 
     public void SetOxygen(float oxygen)
@@ -61,10 +49,10 @@ public class Player : MonoBehaviour
     {
         if (hit.gameObject.CompareTag("Oxygen"))
         {
-            // Destroy(hit.gameObject);
+            Destroy(hit.gameObject);
             // TODO: add base on variable
             this.AddOxygen(20.0f);
-            GameManager.Instance.SpawnOxygen.SpawnCube(1);
+            GameManager.Instance.SpawnOxygen.SpawnOxygenTank(1);
         }
     }
 }

@@ -2,24 +2,24 @@ using UnityEngine;
 
 public class SpawnOxygen : MonoBehaviour
 {
-    private GameManager gameManager;
-    private int width;
-    private int height;
+    [SerializeField] private int m_TankNumber;
+    [SerializeField] private GameObject m_OxygenTankPrefab;
 
     private void Start()
     {
-        this.SpawnCube(1);
+        this.SpawnOxygenTank(this.m_TankNumber);
     }
 
-    public void SpawnCube(int times)
+    public void SpawnOxygenTank(int times)
     {
-        width = Random.Range(0, GameManager.Instance.MazeGenerator.Width);
-        height = Random.Range(0, GameManager.Instance.MazeGenerator.Height);
-
         for (int i = 0; i < times; i++)
         {
+            int x, y;
+            GameObject oxygenTank = Object.Instantiate(this.m_OxygenTankPrefab, this.transform);
+            GameManager.Instance.MazeGenerator.GetRandomGridPosition(out x, out y);
+
             GameManager.Instance.MazeGenerator.PlaceObject(
-                this.transform, width, height
+                oxygenTank.transform, x, y
             );
         }
     }
