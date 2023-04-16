@@ -7,15 +7,14 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float m_MaxOxygen = 100f;
     [SerializeField] private float m_CurrOxygen;
-    [SerializeField] private OxygenUI m_OxygenUI;
     [SerializeField] private float m_DamagePerSecond;
     public float CurrHealth => this.m_CurrOxygen;
 
     private void Start()
     {
         m_CurrOxygen = m_MaxOxygen;
-        m_OxygenUI.SetMaxO2(m_MaxOxygen);
-        m_SpawnOxygen.SpawnCube(1);
+        // m_OxygenUI.SetMaxO2(m_MaxOxygen);
+        // m_SpawnOxygen.SpawnCube(1);
     }
 
     private void Update()
@@ -52,7 +51,7 @@ public class Player : MonoBehaviour
     public void SetOxygen(float oxygen)
     {
         this.m_CurrOxygen = oxygen;
-        this.m_OxygenUI.SetOxygen(oxygen);
+        UIManager.Instance.OxygenUI.SetOxygen(oxygen);
     }
 
     // heath

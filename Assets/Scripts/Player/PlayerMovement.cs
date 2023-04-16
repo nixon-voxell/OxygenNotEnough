@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool m_IsMoving;
     private bool m_IsCrouching;
-    private float groundCheckDistance;
 
     public bool IsMoving => this.m_IsMoving;
     public bool IsCrouching => this.m_IsCrouching;
@@ -22,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
     {
         this.m_IsCrouching = false;
         this.m_IsMoving = false;
-        groundCheckDistance = (GetComponent<CapsuleCollider>().height/2)+0.1f;
 
         StartCoroutine(WaitForShow());
 
@@ -49,14 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckOnGround()
     {
-        RaycastHit hit;
-        if(Physics.Raycast(transform.position,-transform.up,out hit,groundCheckDistance)){
-            // Debug.Log("on ground");
-        }
-        else{
-            // Debug.Log("dead");
+        if (this.transform.position.y < -5.0f)
+        {
+            Debug.Log("Dead");
             GameManager.Instance.Restart();
-
         }
     }
 
@@ -79,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         this.m_IsCrouching = Input.GetButton("Crouch");
 
         this.Move(moveDirection);
+
         CheckOnGround();
     }
 

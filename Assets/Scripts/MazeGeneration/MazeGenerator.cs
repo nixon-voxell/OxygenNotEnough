@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.AI.Navigation;
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class MazeGenerator : MonoBehaviour
 
     [SerializeField, Range(0.0f, 1.0f)] private float m_WallPercentage;
 
-    private GameObject[] m_TilePool;
+    [SerializeField] private GameObject m_Tile;
     private GameObject[] m_WallPool;
 
     public int Width => this.m_Width;
@@ -28,13 +29,9 @@ public class MazeGenerator : MonoBehaviour
         int cellCount = this.m_Width * this.m_Height;
         int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
 
-        this.m_TilePool = new GameObject[cellCount * 5];
         this.m_WallPool = new GameObject[wallCount];
 
-        for (int t = 0; t < this.m_TilePool.Length; t++)
-        {
-            this.m_TilePool[t] = Object.Instantiate(this.m_TilePrefab, this.transform);
-        }
+        this.m_Tile = Object.Instantiate(this.m_TilePrefab, this.transform);
 
         for (int w = 0; w < this.m_WallPool.Length; w++)
         {
@@ -68,23 +65,6 @@ public class MazeGenerator : MonoBehaviour
 
         JobHandle jobHandle = generateMazeJob.Schedule();
         jobHandle.Complete();
-
-        int tilePoolIdx = 0;
-
-        for (int x = 0; x < this.m_Width * 2 + 1; x++)
-        {
-            for (int y = 0; y < this.m_Height * 2 + 1; y++)
-            {
-                Vector3 localPosition = new Vector3(x, 0.0f, y);
-                Quaternion rotation = Quaternion.identity;
-
-                GameObject tile = this.m_TilePool[tilePoolIdx++];
-                tile.SetActive(true);
-                Transform tileTransform = tile.transform;
-                tileTransform.localPosition = localPosition;
-                tileTransform.rotation =  rotation;
-            }
-        }
 
         int wallPoolIdx = 0;
 
@@ -139,6 +119,14 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
+        // resize tile to size of maze
+        this.m_Tile.transform.localPosition = -this.MapOffset;
+        this.m_Tile.transform.localScale = new Vector3(this.Width * 2 + 1, 1.0f, this.Height * 2 + 1);
+        this.m_Tile.SetActive(true);
+
+        NavMeshSurface surface = this.m_Tile.GetComponent<NavMeshSurface>();
+        surface.BuildNavMesh();
+
         na_cellStates.Dispose();
         na_wallStates.Dispose();
 
@@ -157,10 +145,7 @@ public class MazeGenerator : MonoBehaviour
     /// <summary>Hide all tiles and walls.</summary>
     public void HideAll()
     {
-        for (int t = 0; t < this.m_TilePool.Length; t++)
-        {
-            this.m_TilePool[t].SetActive(false);
-        }
+        this.m_Tile.SetActive(false);
 
         for (int w = 0; w < this.m_WallPool.Length; w++)
         {
