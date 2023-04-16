@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
             // TODO: add base on variable
             this.AddOxygen(20.0f);
             GameManager.Instance.SpawnOxygen.SpawnOxygenTank(1);
+        } else if (hit.gameObject.CompareTag("Exit"))
+        {
+            // GameManager.Instance.GameState = GameState.Win;
         }
     }
 }
