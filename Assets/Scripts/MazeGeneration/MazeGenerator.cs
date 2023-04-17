@@ -30,7 +30,7 @@ public class MazeGenerator : MonoBehaviour
 
     public Vector3 GridToWorldPosition(int x, int y)
     {
-        Vector3 position = new Vector3(x * 2 + 1, 1.0f, y * 2 + 1);
+        Vector3 position = new Vector3(x * 2 + 1, 0.5f, y * 2 + 1);
         position += this.MapOffset;
         return position;
     }

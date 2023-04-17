@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
     [SerializeField] private CharacterController m_CharController;
     [SerializeField] private float m_WalkSpeed = 5.0f;
     [SerializeField] private float m_CrouchSpeed = 2.0f;
     [SerializeField] private float m_rotationSpeed = 720f;
+    [SerializeField] private Animator m_Animator;
 
     private bool m_IsMoving;
     private bool m_IsCrouching;
@@ -50,16 +50,32 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput);
         moveDirection.Normalize();
 
-        if(moveDirection != Vector3.zero)
-        {
-            Quaternion torotation = Quaternion.LookRotation(moveDirection, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, torotation, m_rotationSpeed * Time.deltaTime);
-        }
-
         this.m_IsMoving = moveDirection.sqrMagnitude > 0.0f;
         this.m_IsCrouching = Input.GetButton("Crouch");
 
-        this.Move(moveDirection);
+        if (this.m_IsMoving)
+        {
+            Quaternion torotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, torotation, m_rotationSpeed * Time.deltaTime);
+            this.Move(moveDirection);
+
+            if (this.m_IsCrouching)
+            {
+                this.m_Animator.Play("CrouchWalk");
+            } else
+            {
+                this.m_Animator.Play("Walk");
+            }
+        } else
+        {
+            if (this.m_IsCrouching)
+            {
+                this.m_Animator.Play("Crouch");
+            } else
+            {
+                this.m_Animator.Play("Stand");
+            }
+        }
 
         CheckOnGround();
     }

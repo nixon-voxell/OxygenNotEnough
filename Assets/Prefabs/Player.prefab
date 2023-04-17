@@ -78,7 +78,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 54a89a3168d868142b772dee9dcadc26, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6947871763834345721}
+      addedObject: {fileID: -7630267853875133754}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 54a89a3168d868142b772dee9dcadc26, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1928978586}
@@ -94,33 +94,27 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 54a89a3168d868142b772dee9dcadc26, type: 3}
   m_PrefabInstance: {fileID: 5375746706359555659}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &6947871763834345721
-Rigidbody:
+--- !u!95 &-7630267853875133754
+Animator:
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5069668844394818330}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a986cfab0eac38845b6a05a96c3696df, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!143 &1928978586
 CharacterController:
   m_ObjectHideFlags: 0
@@ -160,9 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_CharController: {fileID: 1928978586}
-  m_WalkSpeed: 5
-  m_CrouchSpeed: 2
+  m_WalkSpeed: 3
+  m_CrouchSpeed: 1.8
   m_rotationSpeed: 720
+  m_Animator: {fileID: -7630267853875133754}
 --- !u!114 &1928978588
 MonoBehaviour:
   m_ObjectHideFlags: 0

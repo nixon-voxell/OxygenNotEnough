@@ -22,17 +22,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Player m_PlayerPrefab;
 
-    [Header("Enemy")]
-    [SerializeField] private Enemy m_EnemyPrefab;
-    [SerializeField] private int m_EnemyCount;
-
-    [SerializeField] private SpawnOxygen m_SpawnOxygen;
+    [SerializeField] private OxygenSpawner m_OxygenSpawner;
+    [SerializeField] private EnemySpawner m_EnemySpawner;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
     private GameState m_GameState;
     private Player m_Player;
-    private Enemy[] m_Enemies;
 
     public Camera MainCamera => this.m_MainCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
@@ -40,7 +36,8 @@ public class GameManager : MonoBehaviour
     public MazeGenerator MazeGenerator => this.m_MazeGenerator;
     public GameState GameState => this.m_GameState;
     public Player Player => this.m_Player;
-    public SpawnOxygen SpawnOxygen => this.m_SpawnOxygen;
+    public OxygenSpawner OxygenSpawner => this.m_OxygenSpawner;
+    public EnemySpawner EnemySpawner => this.m_EnemySpawner;
 
     private void Awake()
     {
@@ -57,26 +54,10 @@ public class GameManager : MonoBehaviour
         this.MazeGenerator.GenerateMaze();
 
         // spawn player
-        this.m_Player = Object.Instantiate(this.m_PlayerPrefab);
-
-        this.MazeGenerator.PlaceObject(this.m_Player.transform, 0, 0);
-        Vector3 playerPos = this.m_Player.transform.position;
-        playerPos.y = 0.5f;
-        this.m_Player.transform.position = playerPos;
-
-        // spawn enemy
-        this.m_Enemies = new Enemy[this.m_EnemyCount];
-        for (int e = 0; e < this.m_EnemyCount; e++)
-        {
-            Enemy enemy = Object.Instantiate(this.m_EnemyPrefab);
-
-            int x, y;
-            this.MazeGenerator.GetRandomGridPosition(out x, out y);
-            this.MazeGenerator.PlaceObject(enemy.gameObject.transform, x, y);
-            enemy.ResetTarget();
-
-            this.m_Enemies[e] = enemy;
-        }
+        this.m_Player = Object.Instantiate(
+            this.m_PlayerPrefab,
+            this.MazeGenerator.GridToWorldPosition(0, 0), Quaternion.identity
+        );
 
         // default to idle (main menu)
         this.m_GameState = GameState.Idle;
@@ -111,6 +92,7 @@ public class GameManager : MonoBehaviour
         this.m_GameState = GameState.Lose;
         SceneManager.LoadScene(1);
     }
+
     public void Won(){
         this.m_GameState = GameState.Win;
         SceneManager.LoadScene(0);

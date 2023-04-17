@@ -15,9 +15,9 @@ public class OxygenUI : MonoBehaviour
         Fill.color = Gradient.Evaluate(1f);
     }
 
-    public void SetOxygen(float health)
+    public void SetOxygen(float oxygen)
     {
-        Slider.value = health;
+        Slider.value = oxygen;
         Fill.color = Gradient.Evaluate(Slider.normalizedValue);
     }
 }
