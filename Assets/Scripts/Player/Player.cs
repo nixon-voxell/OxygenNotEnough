@@ -44,9 +44,9 @@ public class Player : MonoBehaviour
         UIManager.Instance.OxygenUI.SetOxygen(oxygen);
     }
 
-    // heath
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnCollisionEnter(Collision hit)
     {
+        Debug.Log(hit);
         if (hit.gameObject.CompareTag("Oxygen"))
         {
             Destroy(hit.gameObject);

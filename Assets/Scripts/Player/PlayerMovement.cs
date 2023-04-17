@@ -50,11 +50,10 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput);
         moveDirection.Normalize();
 
-        transform.Translate(moveDirection*m_WalkSpeed*Time.deltaTime,Space.World);
-        if(moveDirection!=Vector3.zero)
+        if(moveDirection != Vector3.zero)
         {
-            Quaternion torotation = Quaternion.LookRotation(moveDirection,Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation,torotation,m_rotationSpeed*Time.deltaTime);
+            Quaternion torotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, torotation, m_rotationSpeed * Time.deltaTime);
         }
 
         this.m_IsMoving = moveDirection.sqrMagnitude > 0.0f;

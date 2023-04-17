@@ -28,6 +28,27 @@ public class MazeGenerator : MonoBehaviour
         y = UnityEngine.Random.Range(0, this.Height);
     }
 
+    public Vector3 GridToWorldPosition(int x, int y)
+    {
+        Vector3 position = new Vector3(x * 2 + 1, 1.0f, y * 2 + 1);
+        position += this.MapOffset;
+        return position;
+    }
+
+    public Vector3 GetRandomWorldPosition()
+    {
+        int x, y;
+        this.GetRandomGridPosition(out x, out y);
+
+        return this.GridToWorldPosition(x, y);
+    }
+
+    public void PlaceObject(Transform trans, int x, int y)
+    {
+        Vector3 position = this.GridToWorldPosition(x, y);
+        trans.position = position;
+    }
+
     public void GenerateMaze()
     {
         int cellCount = this.m_Width * this.m_Height;
@@ -131,13 +152,6 @@ public class MazeGenerator : MonoBehaviour
         // center the maze
         this.transform.position = new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
         this.m_Seed = (uint)UnityEngine.Random.Range(0, 1000000);
-    }
-
-    public void PlaceObject(Transform trans, int x, int y)
-    {
-        Vector3 position = new Vector3(x * 2 + 1, 1.0f, y * 2 + 1);
-        position += this.MapOffset;
-        trans.position = position;
     }
 
     /// <summary>Hide all tiles and walls.</summary>

@@ -68,13 +68,14 @@ public class GameManager : MonoBehaviour
         this.m_Enemies = new Enemy[this.m_EnemyCount];
         for (int e = 0; e < this.m_EnemyCount; e++)
         {
-            this.m_Enemies[e] = Object.Instantiate(this.m_EnemyPrefab);
+            Enemy enemy = Object.Instantiate(this.m_EnemyPrefab);
 
             int x, y;
             this.MazeGenerator.GetRandomGridPosition(out x, out y);
-            this.MazeGenerator.PlaceObject(this.m_Enemies[e].gameObject.transform, x, y);
-            Vector3 enemyPos = this.m_Enemies[e].transform.position;
-            this.m_Enemies[e].MoveToTarget(enemyPos);
+            this.MazeGenerator.PlaceObject(enemy.gameObject.transform, x, y);
+            enemy.ResetTarget();
+
+            this.m_Enemies[e] = enemy;
         }
 
         // default to idle (main menu)
