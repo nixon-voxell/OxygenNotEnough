@@ -44,16 +44,15 @@ public class Player : MonoBehaviour
         UIManager.Instance.OxygenUI.SetOxygen(oxygen);
     }
 
-    private void OnCollisionEnter(Collision hit)
+    private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(hit);
-        if (hit.gameObject.CompareTag("Oxygen"))
+        if (collider.gameObject.CompareTag("Oxygen"))
         {
-            Destroy(hit.gameObject);
+            Destroy(collider.gameObject);
             // TODO: add base on variable
             this.AddOxygen(20.0f);
             GameManager.Instance.SpawnOxygen.SpawnOxygenTank(1);
-        } else if (hit.gameObject.CompareTag("Exit"))
+        } else if (collider.gameObject.CompareTag("Exit"))
         {
             // GameManager.Instance.GameState = GameState.Win;
         }
