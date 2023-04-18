@@ -70,7 +70,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fdc2bbc1b3684ea48b1e855358227d2e, type: 3}
       propertyPath: m_Name
-      value: Enemy Variant
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -122,8 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 825bd7385b8e1914c850f1a65fdd23f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SpawnStartY: -0.5
-  m_SpawnEndY: 1.53
+  m_SpawnStartY: -1
+  m_SpawnEndY: 0.53
   m_SpawnAnimSpeed: 3
   m_Agent: {fileID: 185912195248455863}
   m_PauseDuration: 3

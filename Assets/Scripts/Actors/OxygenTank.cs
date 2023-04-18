@@ -9,12 +9,9 @@ public class OxygenTank : MonoBehaviour
     private void Start()
     {
         Transform selfTrans = this.transform;
-        Vector3 position = selfTrans.position;
-        position.y = this.m_SpawnStartY;
-        selfTrans.position = position;
 
         this.StartCoroutine(AnimUtil.FloatUp(
-            selfTrans, this.m_SpawnEndY, this.m_SpawnAnimSpeed
+            selfTrans, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed
         ));
     }
 }

@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
 
         this.m_Agent.enabled = false;
         this.StartCoroutine(AnimUtil.FloatUp(
-            this.transform, this.m_SpawnEndY, this.m_SpawnAnimSpeed,
+            this.transform, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed,
             () =>
             {
                 this.m_Agent.enabled = true;
