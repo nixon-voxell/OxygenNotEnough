@@ -5,11 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Oxygen
+  - Exit
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Wall
   - Water
   - UI
   - 

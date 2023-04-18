@@ -2,6 +2,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Jobs;
+using Unity.AI.Navigation;
 
 public class MazeGenerator : MonoBehaviour
 {
@@ -14,24 +15,48 @@ public class MazeGenerator : MonoBehaviour
 
     [SerializeField, Range(0.0f, 1.0f)] private float m_WallPercentage;
 
-    private GameObject[] m_TilePool;
+    private GameObject m_Tile;
     private GameObject[] m_WallPool;
 
-    public int Widht => this.m_Width;
+    public int Width => this.m_Width;
     public int Height => this.m_Height;
+    public Vector3 MapOffset => new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
 
-    private void Start()
+    public void GetRandomGridPosition(out int x, out int y)
+    {
+        x = UnityEngine.Random.Range(0, this.Width);
+        y = UnityEngine.Random.Range(0, this.Height);
+    }
+
+    public Vector3 GridToWorldPosition(int x, int y)
+    {
+        Vector3 position = new Vector3(x * 2 + 1, 0.5f, y * 2 + 1);
+        position += this.MapOffset;
+        return position;
+    }
+
+    public Vector3 GetRandomWorldPosition()
+    {
+        int x, y;
+        this.GetRandomGridPosition(out x, out y);
+
+        return this.GridToWorldPosition(x, y);
+    }
+
+    public void PlaceObject(Transform trans, int x, int y)
+    {
+        Vector3 position = this.GridToWorldPosition(x, y);
+        trans.position = position;
+    }
+
+    public void GenerateMaze()
     {
         int cellCount = this.m_Width * this.m_Height;
         int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
 
-        this.m_TilePool = new GameObject[cellCount * 5];
         this.m_WallPool = new GameObject[wallCount];
 
-        for (int t = 0; t < this.m_TilePool.Length; t++)
-        {
-            this.m_TilePool[t] = Object.Instantiate(this.m_TilePrefab, this.transform);
-        }
+        this.m_Tile = Object.Instantiate(this.m_TilePrefab, this.transform);
 
         for (int w = 0; w < this.m_WallPool.Length; w++)
         {
@@ -39,13 +64,7 @@ public class MazeGenerator : MonoBehaviour
         }
 
         this.HideAll();
-        this.GenerateMaze();
-    }
 
-    public void GenerateMaze()
-    {
-        int cellCount = this.m_Width * this.m_Height;
-        int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
         int verticalWallStartIdx = (this.m_Width - 1) * this.m_Height;
 
         // clear memory to make sure that all initial data is false
@@ -65,23 +84,6 @@ public class MazeGenerator : MonoBehaviour
 
         JobHandle jobHandle = generateMazeJob.Schedule();
         jobHandle.Complete();
-
-        int tilePoolIdx = 0;
-
-        for (int x = 0; x < this.m_Width * 2 + 1; x++)
-        {
-            for (int y = 0; y < this.m_Height * 2 + 1; y++)
-            {
-                Vector3 localPosition = new Vector3(x, 0.0f, y);
-                Quaternion rotation = Quaternion.identity;
-
-                GameObject tile = this.m_TilePool[tilePoolIdx++];
-                tile.SetActive(true);
-                Transform tileTransform = tile.transform;
-                tileTransform.localPosition = localPosition;
-                tileTransform.rotation =  rotation;
-            }
-        }
 
         int wallPoolIdx = 0;
 
@@ -136,26 +138,26 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
+        // resize tile to size of maze
+        this.m_Tile.transform.localPosition = -this.MapOffset;
+        this.m_Tile.transform.localScale = new Vector3(this.Width * 2 + 1, 1.0f, this.Height * 2 + 1);
+        this.m_Tile.SetActive(true);
+
+        NavMeshSurface surface = this.m_Tile.GetComponent<NavMeshSurface>();
+        surface.BuildNavMesh();
+
         na_cellStates.Dispose();
         na_wallStates.Dispose();
 
         // center the maze
         this.transform.position = new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
-        // this.Seed = (uint)UnityEngine.Random.Range(0, 1000000);
-    }
-
-    public void PlaceObject(Object obj, int x, int y)
-    {
-        
+        this.m_Seed = (uint)UnityEngine.Random.Range(0, 1000000);
     }
 
     /// <summary>Hide all tiles and walls.</summary>
     public void HideAll()
     {
-        for (int t = 0; t < this.m_TilePool.Length; t++)
-        {
-            this.m_TilePool[t].SetActive(false);
-        }
+        this.m_Tile.SetActive(false);
 
         for (int w = 0; w < this.m_WallPool.Length; w++)
         {
