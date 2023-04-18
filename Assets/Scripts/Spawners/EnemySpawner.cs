@@ -28,7 +28,8 @@ public class EnemySpawner : MonoBehaviour, ISpawner
         {
             Enemy enemy = Object.Instantiate(
                 this.m_EnemyPrefab,
-                mazeGenerator.GetRandomWorldPosition(), Random.rotation,
+                mazeGenerator.GetRandomWorldPosition(),
+                Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f),
                 this.transform
             );
 
