@@ -26,14 +26,10 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Start");
         this.m_PursuitTime = 0.0f;
         this.m_PursuitEndReset = false;
 
         this.m_Agent.enabled = false;
-        Vector3 position = this.transform.position;
-        position.y = this.m_SpawnStartY;
-        this.transform.position = position;
         this.StartCoroutine(AnimUtil.FloatUp(
             this.transform, this.m_SpawnEndY, this.m_SpawnAnimSpeed,
             () =>
