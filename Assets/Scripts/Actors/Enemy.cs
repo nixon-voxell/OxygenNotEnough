@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IActor
 {
     [Header("Spawn Animation")]
     [SerializeField] private float m_SpawnStartY;
@@ -24,12 +24,13 @@ public class Enemy : MonoBehaviour
 
     public float PauseDuration => this.m_PauseDuration;
 
-    private void Start()
+    public void SpawnIn()
     {
         this.m_PursuitTime = 0.0f;
         this.m_PursuitEndReset = false;
-
+        this.ResetTarget();
         this.m_Agent.enabled = false;
+
         this.StartCoroutine(AnimUtil.FloatUp(
             this.transform, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed,
             () =>
@@ -37,6 +38,12 @@ public class Enemy : MonoBehaviour
                 this.m_Agent.enabled = true;
             }
         ));
+    }
+
+    public void SpawnOut()
+    {
+        this.ResetTarget();
+        this.gameObject.SetActive(false);
     }
 
     private void Update()

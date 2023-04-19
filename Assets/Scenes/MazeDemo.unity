@@ -1721,9 +1721,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061fb4eb8883d554bb2ffac61324a974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TankNumber: 5
-  m_OxygenTankPrefab: {fileID: 5987332802919496945, guid: 212d9733963bb2c4b9bcd131bafe7da3, type: 3}
   m_SpawnInterval: 1
+  m_OxygenTankPool:
+    m_Original: {fileID: 5987332802919496945, guid: 212d9733963bb2c4b9bcd131bafe7da3, type: 3}
+    m_Count: 4
 --- !u!4 &163679369
 Transform:
   m_ObjectHideFlags: 0
@@ -1751,8 +1752,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80199ec1978c63479c770ed128d3e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EnemyPrefab: {fileID: 6036979926981940450, guid: 3279150637ba20848b5645a5ecf00c50, type: 3}
-  m_EnemyCount: 3
+  m_SpawnInterval: 2
+  m_EnemyPool:
+    m_Original: {fileID: 6036979926981940450, guid: 3279150637ba20848b5645a5ecf00c50, type: 3}
+    m_Count: 3
 --- !u!1 &202552633
 GameObject:
   m_ObjectHideFlags: 0
@@ -1959,10 +1962,10 @@ MonoBehaviour:
   m_MainCamera: {fileID: 963194227}
   m_GlobalVolume: {fileID: 1963602350}
   m_VigAnimaSpeed: 2
-  m_MazeGenerator: {fileID: 1966802123}
   m_PlayerPrefab: {fileID: 1928978588, guid: c5390bad63e8f12439cc0593cb3fc26b, type: 3}
-  m_OxygenSpawner: {fileID: 163679368}
-  m_EnemySpawner: {fileID: 163679370}
+  MazeGenerator: {fileID: 0}
+  OxygenSpawner: {fileID: 0}
+  EnemySpawner: {fileID: 0}
 --- !u!114 &227190832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10543,7 +10546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2061568329
 MonoBehaviour:
   m_ObjectHideFlags: 0

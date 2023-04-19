@@ -3,31 +3,43 @@ using UnityEngine;
 
 public class OxygenSpawner : MonoBehaviour, ISpawner
 {
-    [SerializeField] private int m_TankNumber;
-    [SerializeField] private OxygenTank m_OxygenTankPrefab;
     [SerializeField] private float m_SpawnInterval;
+    [SerializeField] private ObjectPool<OxygenTank> m_OxygenTankPool;
 
     private void Start()
     {
-        this.Spawn();
+        GameManager.Instance.OxygenSpawner = this;
+        this.m_OxygenTankPool.Initialize(this.transform, false);
     }
 
     public void Spawn()
     {
-        this.StartCoroutine(this.SpawnOxygenTank(this.m_TankNumber));
+        // spawn tanks
+        this.StartCoroutine(this.SpawnOxygenTanks());
     }
 
-    public IEnumerator SpawnOxygenTank(int times)
+    public void Despawn()
+    {
+        for (int e = 0; e < this.m_OxygenTankPool.Count; e++)
+        {
+            OxygenTank oxygenTank = this.m_OxygenTankPool.GetNextObject();
+            oxygenTank.SpawnOut();
+        }
+    }
+
+    public IEnumerator SpawnOxygenTanks()
     {
         MazeGenerator mazeGenerator = GameManager.Instance.MazeGenerator;
 
-        for (int i = 0; i < times; i++)
+        for (int o = 0; o < this.m_OxygenTankPool.Count; o++)
         {
-            OxygenTank oxygenTank = Object.Instantiate(
-                this.m_OxygenTankPrefab,
-                mazeGenerator.GetRandomWorldPosition(), Quaternion.identity,
-                this.transform
-            );
+            OxygenTank oxygenTank = this.m_OxygenTankPool.GetNextObject();
+            Transform trans = oxygenTank.transform;
+
+            trans.position = mazeGenerator.GetRandomWorldPosition();
+            trans.rotation = Quaternion.identity;
+            // start spawn in animation
+            oxygenTank.SpawnIn();
 
             yield return new WaitForSeconds(this.m_SpawnInterval);
         }

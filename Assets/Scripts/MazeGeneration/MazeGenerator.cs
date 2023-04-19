@@ -22,6 +22,11 @@ public class MazeGenerator : MonoBehaviour
     public int Height => this.m_Height;
     public Vector3 MapOffset => new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
 
+    private void Start()
+    {
+        GameManager.Instance.MazeGenerator = this;
+    }
+
     public void GetRandomGridPosition(out int x, out int y)
     {
         x = UnityEngine.Random.Range(0, this.Width);
@@ -151,6 +156,7 @@ public class MazeGenerator : MonoBehaviour
 
         // center the maze
         this.transform.position = new Vector3(-this.m_Width + 0.5f, 0.0f, -this.m_Height);
+        // change seed to a different number
         this.m_Seed = (uint)UnityEngine.Random.Range(0, 1000000);
     }
 

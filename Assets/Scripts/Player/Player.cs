@@ -51,7 +51,8 @@ public class Player : MonoBehaviour
             Destroy(collider.gameObject);
             // TODO: add base on variable
             this.AddOxygen(40.0f);
-            this.StartCoroutine(GameManager.Instance.OxygenSpawner.SpawnOxygenTank(1));
+            // TODO: animate out & animate in in another place
+            // this.StartCoroutine(GameManager.Instance.OxygenSpawner.SpawnOxygenTanks(1));
         } else if (collider.gameObject.CompareTag("Exit"))
         {
             // GameManager.Instance.GameState = GameState.Win;
