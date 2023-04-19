@@ -35,17 +35,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckOnGround()
     {
-        if (this.transform.position.y < -5.0f)
+        Transform selfTrans = this.transform;
+        if (!Physics.SphereCast(selfTrans.position, 0.2f, -selfTrans.up, out RaycastHit hit, 1.0f))
         {
-            Debug.Log("Dead");
-            GameManager.Instance.Restart();
+            GameManager.Instance.Lose();
         }
     }
 
     private void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput);
         moveDirection.Normalize();

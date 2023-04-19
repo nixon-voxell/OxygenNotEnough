@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IActor
 {
     [SerializeField] private PlayerMovement m_PlayerMovement;
 
@@ -11,10 +11,16 @@ public class Player : MonoBehaviour
 
     public GameOverMenu gameOver;
 
-    private void Start()
+    public void SpawnIn()
     {
-        m_CurrOxygen = m_MaxOxygen;
+        this.m_CurrOxygen = this.m_MaxOxygen;
         UIManager.Instance.OxygenUI.SetMaxO2(m_MaxOxygen);
+        this.gameObject.SetActive(true);
+    }
+
+    public void SpawnOut()
+    {
+        this.gameObject.SetActive(false);
     }
 
     private void Update()

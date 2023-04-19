@@ -85,32 +85,35 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         this.m_GameState = GameState.InProgress;
-        this.MazeGenerator.GenerateMaze();
 
+        this.MazeGenerator.GenerateMaze();
         this.EnemySpawner.Spawn();
         this.OxygenSpawner.Spawn();
+        this.Player.SpawnIn();
     }
 
     public void EndGame()
     {
-        // return to main menu
         this.m_GameState = GameState.Idle;
+
         this.MazeGenerator.HideAll();
+        this.EnemySpawner.Despawn();
+        this.OxygenSpawner.Despawn();
+        this.Player.SpawnOut();
+    }
+
+    public void Win()
+    {
+        this.m_GameState = GameState.Win;
+    }
+
+    public void Lose()
+    {
+        this.m_GameState = GameState.Lose;
     }
 
     private void OnDestroy()
     {
         Instance = null;
-    }
-
-    public void Restart()
-    {
-        this.m_GameState = GameState.Lose;
-        SceneManager.LoadScene(1);
-    }
-
-    public void Won(){
-        this.m_GameState = GameState.Win;
-        SceneManager.LoadScene(0);
     }
 }
