@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     public float CurrHealth => this.m_CurrOxygen;
 
     public GameOverMenu gameOver;
-
     private void Start()
     {
         m_CurrOxygen = m_MaxOxygen;
@@ -24,7 +23,8 @@ public class Player : MonoBehaviour
             // use time.deltatime to make sure damage is consistent
             this.RemoveOxygen(this.m_DamagePerSecond * Time.deltaTime);
         }
-
+        SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving,this.m_PlayerMovement.IsCrouching);
+        SoundEffect.Instance.ReleaseOxygen(this.m_CurrOxygen,this.m_PlayerMovement.IsMoving);
         GameManager.Instance.SetVignetteIntensity(1.0f - this.CurrHealth / 100.0f);
     }
 
@@ -35,6 +35,7 @@ public class Player : MonoBehaviour
 
     public void AddOxygen(float oxygen)
     {
+        SoundEffect.Instance.GetOxygenTank();
         this.SetOxygen(Mathf.Min(this.m_CurrOxygen + oxygen, 100.0f));
     }
 
@@ -54,6 +55,8 @@ public class Player : MonoBehaviour
             this.StartCoroutine(GameManager.Instance.OxygenSpawner.SpawnOxygenTank(1));
         } else if (collider.gameObject.CompareTag("Exit"))
         {
+            Debug.Log("Win");
+            SoundEffect.Instance.Win();
             // GameManager.Instance.GameState = GameState.Win;
         }
     }
