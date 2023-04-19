@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player m_PlayerPrefab;
 
     [SerializeField] private OxygenSpawner m_OxygenSpawner;
+    [SerializeField] private HeliumSpawner m_HeliumSpawner;
     [SerializeField] private EnemySpawner m_EnemySpawner;
 
     private Vignette m_Vignette;
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
     public GameState GameState => this.m_GameState;
     public Player Player => this.m_Player;
     public OxygenSpawner OxygenSpawner => this.m_OxygenSpawner;
+    public HeliumSpawner HeliumSpawner => this.m_HeliumSpawner;
+
     public EnemySpawner EnemySpawner => this.m_EnemySpawner;
 
     private void Awake()
