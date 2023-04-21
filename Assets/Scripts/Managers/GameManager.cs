@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public MazeGenerator MazeGenerator;
     public OxygenSpawner OxygenSpawner;
     public EnemySpawner EnemySpawner;
+    public HeliumSpawner HeliumSpawner;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
