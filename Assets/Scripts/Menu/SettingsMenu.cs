@@ -40,6 +40,18 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        transform.localScale = Vector2.zero;
+    }
+
+    public void Open()
+    {
+        transform.LeanScale(Vector2.one, 0.8f);
+    }
+
+    public void Close()
+    {
+        transform.LeanScale(Vector2.zero, 1f).setEaseInBack();
     }
 
     public void SetResolution (int resolutionIndex)
