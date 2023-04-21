@@ -19,25 +19,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private Volume m_GlobalVolume;
     [SerializeField] private float m_VigAnimaSpeed;
-    [SerializeField] private MazeGenerator m_MazeGenerator;
     [SerializeField] private Player m_PlayerPrefab;
 
-    [SerializeField] private OxygenSpawner m_OxygenSpawner;
-    [SerializeField] private EnemySpawner m_EnemySpawner;
+    public MazeGenerator MazeGenerator;
+    public OxygenSpawner OxygenSpawner;
+    public EnemySpawner EnemySpawner;
+    public HeliumSpawner HeliumSpawner;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;
     private GameState m_GameState;
     private Player m_Player;
 
+    public GameState GameState => this.m_GameState;
+
     public Camera MainCamera => this.m_MainCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
     public Vignette Vignette => this.m_Vignette;
-    public MazeGenerator MazeGenerator => this.m_MazeGenerator;
-    public GameState GameState => this.m_GameState;
+
+    // game world actors
     public Player Player => this.m_Player;
-    public OxygenSpawner OxygenSpawner => this.m_OxygenSpawner;
-    public EnemySpawner EnemySpawner => this.m_EnemySpawner;
 
     private void Awake()
     {
@@ -50,14 +51,14 @@ public class GameManager : MonoBehaviour
             Object.Destroy(this);
         }
 
-        UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
-        this.MazeGenerator.GenerateMaze();
-
-        // spawn player
+        // instantiate player
         this.m_Player = Object.Instantiate(
             this.m_PlayerPrefab,
             this.MazeGenerator.GridToWorldPosition(0, 0), Quaternion.identity
         );
+
+        // TODO: remove this
+        this.StartGame();
 
         // default to idle (main menu)
         this.m_GameState = GameState.Idle;
@@ -80,6 +81,22 @@ public class GameManager : MonoBehaviour
     public void SetVignetteIntensity(float intensity)
     {
         this.m_TargetVigIntensity = intensity;
+    }
+
+    public void StartGame()
+    {
+        this.m_GameState = GameState.InProgress;
+        this.MazeGenerator.GenerateMaze();
+
+        this.EnemySpawner.Spawn();
+        this.OxygenSpawner.Spawn();
+    }
+
+    public void EndGame()
+    {
+        // return to main menu
+        this.m_GameState = GameState.Idle;
+        this.MazeGenerator.HideAll();
     }
 
     private void OnDestroy()

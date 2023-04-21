@@ -10,15 +10,16 @@ public class PlayerMovement : MonoBehaviour
 
     private bool m_IsMoving;
     private bool m_IsCrouching;
-
+    private bool m_IsUsingHelium;
     public bool IsMoving => this.m_IsMoving;
     public bool IsCrouching => this.m_IsCrouching;
-
+    public bool IsUsingHelium => this.m_IsUsingHelium;
 
     void Start()
     {
         this.m_IsCrouching = false;
         this.m_IsMoving = false;
+        this.m_IsUsingHelium = false;
     }
 
     public void Move(Vector3 moveDirection)
@@ -52,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
 
         this.m_IsMoving = moveDirection.sqrMagnitude > 0.0f;
         this.m_IsCrouching = Input.GetButton("Crouch");
-
+        this.m_IsUsingHelium = Input.GetButton("Jump");
+        
         if (this.m_IsMoving)
         {
             Quaternion torotation = Quaternion.LookRotation(moveDirection, Vector3.up);

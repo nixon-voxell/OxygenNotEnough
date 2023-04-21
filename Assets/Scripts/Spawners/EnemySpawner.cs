@@ -3,14 +3,13 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour, ISpawner
 {
-    [SerializeField] private Enemy m_EnemyPrefab;
-    [SerializeField] private int m_EnemyCount;
-
-    private Enemy[] m_Enemies;
+    [SerializeField] private float m_SpawnInterval;
+    [SerializeField] private ObjectPool<Enemy> m_EnemyPool;
 
     private void Start()
     {
-        this.Spawn();
+        GameManager.Instance.EnemySpawner = this;
+        this.m_EnemyPool.Initialize(this.transform, false);
     }
 
     public void Spawn()
@@ -19,23 +18,30 @@ public class EnemySpawner : MonoBehaviour, ISpawner
         this.StartCoroutine(this.SpawnEnemies());
     }
 
+    public void Despawn()
+    {
+        for (int e = 0; e < this.m_EnemyPool.Count; e++)
+        {
+            Enemy enemy = this.m_EnemyPool.GetNextObject();
+            enemy.SpawnOut();
+        }
+    }
+
     private IEnumerator SpawnEnemies()
     {
         MazeGenerator mazeGenerator = GameManager.Instance.MazeGenerator;
-        this.m_Enemies = new Enemy[this.m_EnemyCount];
 
-        for (int e = 0; e < this.m_EnemyCount; e++)
+        for (int e = 0; e < this.m_EnemyPool.Count; e++)
         {
-            Enemy enemy = Object.Instantiate(
-                this.m_EnemyPrefab,
-                mazeGenerator.GetRandomWorldPosition(), Random.rotation,
-                this.transform
-            );
+            Enemy enemy = this.m_EnemyPool.GetNextObject();
+            Transform trans = enemy.transform;
 
-            enemy.ResetTarget();
-            this.m_Enemies[e] = enemy;
+            trans.position = mazeGenerator.GetRandomWorldPosition();
+            trans.rotation = Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f);
+            // start spawn in animation
+            enemy.SpawnIn();
 
-            yield return new WaitForSeconds(enemy.PauseDuration);
+            yield return new WaitForSeconds(this.m_SpawnInterval);
         }
     }
 }
