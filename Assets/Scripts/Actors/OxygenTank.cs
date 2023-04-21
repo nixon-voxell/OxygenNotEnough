@@ -10,7 +10,7 @@ public class OxygenTank : MonoBehaviour, IActor
     {
         Transform selfTrans = this.transform;
 
-        this.StartCoroutine(AnimUtil.FloatUp(
+        this.StartCoroutine(AnimUtil.MoveY(
             selfTrans, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed
         ));
     }
