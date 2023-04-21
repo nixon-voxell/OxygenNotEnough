@@ -9,12 +9,17 @@ public class HeliumSpawner : MonoBehaviour, ISpawner
 
     private void Start()
     {
-        this.Spawn();
+        GameManager.Instance.HeliumSpawner = this;
     }
 
     public void Spawn()
     {
         this.StartCoroutine(this.SpawnHeliumTank(this.m_TankNumber));
+    }
+
+    public void Despawn()
+    {
+        
     }
 
     public IEnumerator SpawnHeliumTank(int times)

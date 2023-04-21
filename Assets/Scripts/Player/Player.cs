@@ -82,6 +82,7 @@ public class Player : MonoBehaviour
             this.AddOxygen(40.0f);
             // TODO: animate out & animate in in another place
         } else if (collider.gameObject.CompareTag("Exit"))
+        {
            // TODO: win game
         } else if (collider.gameObject.CompareTag("Helium"))
         {
