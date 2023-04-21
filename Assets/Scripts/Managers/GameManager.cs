@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.Mathematics;
-using UnityEngine.SceneManagement;
 
 public enum GameState
 {
