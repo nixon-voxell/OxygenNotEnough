@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Voxell.Util.Editor
 {
-    [CustomPropertyDrawer(typeof(Scene))]
+    [CustomPropertyDrawer(typeof(SceneRef))]
     public class SceneDrawer : PropertyDrawer
     {
         public override void OnGUI(Rect rect, SerializedProperty property, GUIContent label)
