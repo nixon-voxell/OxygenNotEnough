@@ -1966,6 +1966,7 @@ MonoBehaviour:
   MazeGenerator: {fileID: 0}
   OxygenSpawner: {fileID: 0}
   EnemySpawner: {fileID: 0}
+  HeliumSpawner: {fileID: 0}
 --- !u!114 &227190832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1978,7 +1979,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a54840e1e0a841648a58b0cbd8019e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OxygenUI: {fileID: 1644106016}
+  OxygenUI: {fileID: 0}
+  HeliumUI: {fileID: 0}
 --- !u!1 &242739433
 GameObject:
   m_ObjectHideFlags: 0

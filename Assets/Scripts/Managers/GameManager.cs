@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.Mathematics;
+using Voxell.Util;
 
 public enum GameState
 {
@@ -20,10 +21,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float m_VigAnimaSpeed;
     [SerializeField] private Player m_PlayerPrefab;
 
-    public MazeGenerator MazeGenerator;
-    public OxygenSpawner OxygenSpawner;
-    public EnemySpawner EnemySpawner;
-    public HeliumSpawner HeliumSpawner;
+    [InspectOnly] public MazeGenerator MazeGenerator;
+    [InspectOnly] public OxygenSpawner OxygenSpawner;
+    [InspectOnly] public EnemySpawner EnemySpawner;
+    [InspectOnly] public HeliumSpawner HeliumSpawner;
 
     private Vignette m_Vignette;
     private float m_TargetVigIntensity;

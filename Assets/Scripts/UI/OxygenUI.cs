@@ -7,12 +7,10 @@ public class OxygenUI : MonoBehaviour
     public Gradient Gradient;
     public Image Fill;
 
-    public void SetMaxO2(float health)
+    public void SetMaxOxygen(float oxygen)
     {
-        Slider.maxValue = health;
-        Slider.value = health;
-
-        Fill.color = Gradient.Evaluate(1f);
+        Slider.maxValue = oxygen;
+        this.SetOxygen(oxygen);
     }
 
     public void SetOxygen(float oxygen)

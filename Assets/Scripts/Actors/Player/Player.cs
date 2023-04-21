@@ -15,14 +15,15 @@ public class Player : MonoBehaviour, IActor
 
     public float CurrHealth => this.m_CurrOxygen;
     public int CurrHelium => this.m_CurrHelium;
-    public GameOverMenu gameOver;
 
     public void SpawnIn()
     {
         this.m_CurrOxygen = this.m_MaxOxygen;
-        m_CurrHelium = 0;
-        m_CurrOxygen = m_MaxOxygen;
-        UIManager.Instance.OxygenUI.SetMaxO2(m_MaxOxygen);
+        UIManager.Instance.OxygenUI.SetMaxOxygen(m_MaxOxygen);
+
+        this.SetOxygen(this.m_MaxOxygen);
+        this.SetHelium(0);
+
         this.gameObject.SetActive(true);
     }
 
@@ -86,28 +87,31 @@ public class Player : MonoBehaviour, IActor
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Oxygen"))
+        switch (collider.tag)
         {
-            Destroy(collider.gameObject);
-            // TODO: add base on variable
-            this.AddOxygen(40.0f);
-            // TODO: animate out & animate in in another place
-        } else if (collider.gameObject.CompareTag("Exit"))
-        {
-           // TODO: win game
-        } else if (collider.gameObject.CompareTag("Helium"))
-        {
-            Destroy(collider.gameObject);
-            // TODO: add base on variable
-            AddHelium();
-            this.StartCoroutine(GameManager.Instance.HeliumSpawner.SpawnHeliumTank(1));
-        }
-        
-        else if (collider.gameObject.CompareTag("Exit"))
-        {
-            Debug.Log("Win");
-            SoundEffect.Instance.Win();
-            // GameManager.Instance.GameState = GameState.Win;
+            case "Oxygen":
+                OxygenTank oxygenTank = collider.GetComponent<OxygenTank>();
+                if (oxygenTank != null)
+                {
+                    this.AddOxygen(oxygenTank.OxygenAmount);
+                } else
+                {
+                    Debug.LogError("No oxygen tank found but collider tag is set to 'Oxygen'.");
+                }
+
+                break;
+
+            case "Helium":
+                this.AddHelium();
+                break;
+
+            case "Exit":
+                // win!
+                GameManager.Instance.Win();
+                break;
+
+            default:
+                break;
         }
     }
 }
