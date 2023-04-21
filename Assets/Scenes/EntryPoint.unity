@@ -167,3 +167,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e6947863b6f1444895c8d4052c4412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Menu: 
+  m_Maze: Maze
