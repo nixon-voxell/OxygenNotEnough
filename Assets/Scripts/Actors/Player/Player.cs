@@ -13,7 +13,8 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private int m_MaxHelium = 3;
     [SerializeField] private int m_CurrHelium;
 
-    public float CurrHealth => this.m_CurrOxygen;
+    public float MaxOxygen => this.m_MaxOxygen;
+    public float CurrOxygen => this.m_CurrOxygen;
     public int CurrHelium => this.m_CurrHelium;
 
     public void SpawnIn()
@@ -80,9 +81,9 @@ public class Player : MonoBehaviour, IActor
         else         
             this.m_CurrHelium = 0;
 
-        SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving,this.m_PlayerMovement.IsCrouching);
-        SoundEffect.Instance.ReleaseOxygen(this.m_CurrOxygen,this.m_PlayerMovement.IsMoving);
-        GameManager.Instance.SetVignetteIntensity(1.0f - this.CurrHealth / 100.0f);
+        // SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving, this.m_PlayerMovement.IsCrouching);
+        // SoundEffect.Instance.ReleaseOxygen(this.m_CurrOxygen, this.m_PlayerMovement.IsMoving);
+        // GameManager.Instance.SetVignetteIntensity(1.0f - this.CurrOxygen / this.MaxOxygen);
     }
 
     private void OnTriggerEnter(Collider collider)

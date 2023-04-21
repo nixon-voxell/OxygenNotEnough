@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using Voxell.Util;
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     [InspectOnly] public HeliumSpawner HeliumSpawner;
 
     private Vignette m_Vignette;
+    private float m_CurrVigIntensity;
     private float m_TargetVigIntensity;
     private GameState m_GameState;
     private Player m_Player;
@@ -40,44 +42,6 @@ public class GameManager : MonoBehaviour
     // game world actors
     public Player Player => this.m_Player;
 
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        } else
-        {
-            Debug.LogError("There is probably more than one instance.", Instance);
-            Object.Destroy(this);
-        }
-
-        // instantiate player
-        this.m_Player = Object.Instantiate(
-            this.m_PlayerPrefab,
-            this.MazeGenerator.GridToWorldPosition(0, 0), Quaternion.identity
-        );
-
-        // TODO: remove this
-        this.StartGame();
-
-        // default to idle (main menu)
-        this.m_GameState = GameState.Idle;
-        if (!this.m_GlobalVolume.profile.TryGet<Vignette>(out this.m_Vignette))
-        {
-            Debug.LogWarning("Vignette post-process override not found");
-        }
-    }
-
-    public void Update()
-    {
-        float vigIntensity = this.Vignette.intensity.value;
-
-        // simple lerp animation (fast when difference is big, slow when difference is small)
-        vigIntensity = math.lerp(vigIntensity, this.m_TargetVigIntensity, Time.deltaTime  * this.m_VigAnimaSpeed);
-
-        this.Vignette.intensity.value = vigIntensity;
-    }
-
     public void SetVignetteIntensity(float intensity)
     {
         this.m_TargetVigIntensity = intensity;
@@ -86,6 +50,16 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         this.m_GameState = GameState.InProgress;
+
+        if (this.m_Player == null)
+        {
+            // instantiate player
+            this.m_Player = Object.Instantiate(this.m_PlayerPrefab);
+            // move player to Maze scene
+            SceneManager.MoveGameObjectToScene(
+                this.m_Player.gameObject, this.MazeGenerator.gameObject.scene
+            );
+        }
 
         this.MazeGenerator.GenerateMaze();
         this.EnemySpawner.Spawn();
@@ -111,6 +85,46 @@ public class GameManager : MonoBehaviour
     public void Lose()
     {
         this.m_GameState = GameState.Lose;
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        } else
+        {
+            Debug.LogError("There is probably more than one instance.", Instance);
+            Object.Destroy(this);
+        }
+
+        // find vignette volume profile
+        if (!this.m_GlobalVolume.profile.TryGet<Vignette>(out this.m_Vignette))
+        {
+            Debug.LogWarning("Vignette post-process override not found");
+        } else
+        {
+            this.m_CurrVigIntensity = this.m_Vignette.intensity.value;
+            this.m_TargetVigIntensity = this.m_CurrVigIntensity;
+        }
+
+        // default to idle (main menu)
+        this.m_GameState = GameState.Idle;
+    }
+
+    private void Update()
+    {
+        if (this.m_GameState == GameState.InProgress)
+        {
+            // simple lerp animation (fast when difference is big, slow when difference is small)
+            this.m_CurrVigIntensity = math.lerp(this.m_CurrVigIntensity, this.m_TargetVigIntensity, Time.deltaTime  * this.m_VigAnimaSpeed);
+
+            this.Vignette.intensity.value = this.m_CurrVigIntensity;
+        } else
+        {
+            // hard code to 0.1f, find this value not bad
+            this.Vignette.intensity.value = 0.1f;
+        }
     }
 
     private void OnDestroy()
