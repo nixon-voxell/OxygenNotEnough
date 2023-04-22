@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour, IActor
         this.ResetTarget();
         this.m_Agent.enabled = false;
 
-        this.StartCoroutine(AnimUtil.MoveY(
+        this.StartCoroutine(AnimUtil.MoveUp(
             this.transform, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed,
             () =>
             {

@@ -98,6 +98,7 @@ public class Player : MonoBehaviour, IActor
                 if (oxygenTank != null)
                 {
                     this.AddOxygen(oxygenTank.OxygenAmount);
+                    oxygenTank.SwitchLocation();
                 } else
                 {
                     Debug.LogError("No oxygen tank found but collider tag is set to 'Oxygen'.");

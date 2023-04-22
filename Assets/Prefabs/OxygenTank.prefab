@@ -266,6 +266,7 @@ MonoBehaviour:
   m_SpawnEndY: 0.5
   m_SpawnAnimSpeed: 3
   m_OxygenAmount: 50
+  m_BoxCollider: {fileID: 4524453485139352455}
 --- !u!4 &4399535315282694630 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8b218a1014634fc47997e3b1c2b1f5d5, type: 3}
