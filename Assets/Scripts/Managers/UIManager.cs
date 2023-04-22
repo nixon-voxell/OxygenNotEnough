@@ -1,5 +1,4 @@
 using UnityEngine;
-using Voxell.Util;
 
 public class UIManager : MonoBehaviour
 {
@@ -7,8 +6,8 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Canvas[] m_Canvases;
 
-    [InspectOnly] public OxygenUI OxygenUI;
-    [InspectOnly] public HeliumUI HeliumUI;
+    public OxygenUI OxygenUI;
+    public HeliumUI HeliumUI;
 
     private void Awake()
     {
@@ -20,6 +19,9 @@ public class UIManager : MonoBehaviour
             Debug.LogError("There is probably more than one instance.", Instance);
             Object.Destroy(this);
         }
+
+        this.OxygenUI.gameObject.SetActive(false);
+        this.HeliumUI.gameObject.SetActive(false);
     }
 
     private void Start()

@@ -26,6 +26,7 @@ public class Enemy : MonoBehaviour, IActor
 
     public void SpawnIn()
     {
+        this.gameObject.SetActive(true);
         this.m_PursuitTime = 0.0f;
         this.m_PursuitEndReset = false;
         this.ResetTarget();
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour, IActor
     public void SpawnOut()
     {
         this.ResetTarget();
+        this.m_Agent.enabled = false;
         this.gameObject.SetActive(false);
     }
 

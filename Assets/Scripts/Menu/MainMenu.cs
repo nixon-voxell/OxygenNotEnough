@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -7,7 +6,7 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         this.m_Panel.SetActive(false);
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        GameManager.Instance.StartGame();
     }
 
     public void ExitGame()
@@ -16,4 +15,3 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 }
-

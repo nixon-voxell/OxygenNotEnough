@@ -11,10 +11,10 @@ public class OxygenTank : MonoBehaviour, IActor
 
     public void SpawnIn()
     {
-        Transform selfTrans = this.transform;
+        this.gameObject.SetActive(true);
 
         this.StartCoroutine(AnimUtil.MoveY(
-            selfTrans, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed
+            this.transform, this.m_SpawnStartY, this.m_SpawnEndY, this.m_SpawnAnimSpeed
         ));
     }
 

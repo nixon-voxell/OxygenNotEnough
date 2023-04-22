@@ -15,13 +15,6 @@ public class PlayerMovement : MonoBehaviour
     public bool IsCrouching => this.m_IsCrouching;
     public bool IsUsingHelium => this.m_IsUsingHelium;
 
-    void Start()
-    {
-        this.m_IsCrouching = false;
-        this.m_IsMoving = false;
-        this.m_IsUsingHelium = false;
-    }
-
     public void Move(Vector3 moveDirection)
     {
         float magnitude = this.m_WalkSpeed;
@@ -34,17 +27,16 @@ public class PlayerMovement : MonoBehaviour
         this.m_CharController.Move(moveDirection * magnitude);
     }
 
-    private void CheckOnGround()
+    private void Start()
     {
-        Transform selfTrans = this.transform;
-        if (!Physics.SphereCast(selfTrans.position, 0.2f, -selfTrans.up, out RaycastHit hit, 1.0f))
-        {
-            GameManager.Instance.Lose();
-        }
+        this.m_IsCrouching = false;
+        this.m_IsMoving = false;
+        this.m_IsUsingHelium = false;
     }
 
     private void Update()
     {
+        Debug.Log(GameManager.Instance.GameState);
         if (GameManager.Instance.GameState != GameState.InProgress) return;
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -80,8 +72,6 @@ public class PlayerMovement : MonoBehaviour
                 this.m_Animator.Play("Stand");
             }
         }
-
-        CheckOnGround();
     }
 
 }

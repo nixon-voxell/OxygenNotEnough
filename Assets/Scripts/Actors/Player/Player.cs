@@ -19,13 +19,15 @@ public class Player : MonoBehaviour, IActor
 
     public void SpawnIn()
     {
+        this.gameObject.SetActive(true);
+
         this.m_CurrOxygen = this.m_MaxOxygen;
         UIManager.Instance.OxygenUI.SetMaxOxygen(m_MaxOxygen);
 
         this.SetOxygen(this.m_MaxOxygen);
         this.SetHelium(0);
 
-        this.gameObject.SetActive(true);
+        GameManager.Instance.MazeGenerator.PlaceObject(this.transform, 0, 0);
     }
 
     public void SpawnOut()
@@ -77,13 +79,14 @@ public class Player : MonoBehaviour, IActor
         {
             this.m_CurrHelium ++;
             this.RemoveHelium();
-        }
-        else         
+        } else
+        {
             this.m_CurrHelium = 0;
+        }
 
-        // SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving, this.m_PlayerMovement.IsCrouching);
-        // SoundEffect.Instance.ReleaseOxygen(this.m_CurrOxygen, this.m_PlayerMovement.IsMoving);
-        // GameManager.Instance.SetVignetteIntensity(1.0f - this.CurrOxygen / this.MaxOxygen);
+        SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving, this.m_PlayerMovement.IsCrouching);
+        SoundEffect.Instance.ReleaseOxygen(this.m_PlayerMovement.IsMoving);
+        GameManager.Instance.SetVignetteIntensity(1.0f - this.CurrOxygen / this.MaxOxygen);
     }
 
     private void OnTriggerEnter(Collider collider)
