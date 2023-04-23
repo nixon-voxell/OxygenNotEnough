@@ -3,7 +3,37 @@ guid: 23cb0bf8b05e32440a99bd745baf9f78
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Belt
+    second: {fileID: 2100000, guid: c4ec075a134844448acf4a34b0b2fd1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Body
+    second: {fileID: 2100000, guid: ce13ed4522a7dfd47a6c36c1c414c5dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Eye
+    second: {fileID: 2100000, guid: 8ea450f7cf4c10245820fd1e0c6faf61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Face Material
+    second: {fileID: 2100000, guid: fb1f68bf9974000458c886d43a6151f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rings
+    second: {fileID: 2100000, guid: 93d4006b6634f134da9e9a0c6e472269, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tank
+    second: {fileID: 2100000, guid: 929350d2419ac424ab9386bd846547d1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
