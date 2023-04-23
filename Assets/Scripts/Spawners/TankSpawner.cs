@@ -30,6 +30,7 @@ public class TankSpawner : MonoBehaviour, ISpawner
 
     public void Despawn()
     {
+        this.StopAllCoroutines();
         for (int s = 0; s < this.m_SpawnerData.Length; s++)
         {
             // spawn out all items in the pool

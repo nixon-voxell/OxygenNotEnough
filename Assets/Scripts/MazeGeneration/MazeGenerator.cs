@@ -163,11 +163,19 @@ public class MazeGenerator : MonoBehaviour
     /// <summary>Hide all tiles and walls.</summary>
     public void HideAll()
     {
+        this.ResetTransform(this.transform);
         this.m_Tile.SetActive(false);
 
         for (int w = 0; w < this.m_WallPool.Length; w++)
         {
+            this.ResetTransform(this.m_WallPool[w].transform);
             this.m_WallPool[w].SetActive(false);
         }
+    }
+
+    private void ResetTransform(Transform trans)
+    {
+        trans.position = Vector3.zero;
+        trans.rotation = Quaternion.identity;
     }
 }
