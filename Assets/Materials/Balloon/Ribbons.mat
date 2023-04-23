@@ -55,8 +55,9 @@ Material:
     - _NoiseScale: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _StiffnessPower: 1
+    - _StiffnessPower: 0.8
     - _WindSpeed: 2
     - _WindStrength: 1
-    m_Colors: []
+    m_Colors:
+    - _BaseColor: {r: 3.471698, g: 0.6800085, b: 0.4749022, a: 1}
   m_BuildTextureStacks: []
