@@ -71,13 +71,13 @@ public class Player : MonoBehaviour, IActor
 
     private void CheckForDestructibles()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position,0.2f);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.2f);
         foreach(Collider c in colliders)
         {
-            if (c.gameObject.name == "Enemy(Clone)")
+            if (c.CompareTag("Enemy"))
+            {
                 this.RemoveOxygen(this.m_DamagePerSecond * Time.deltaTime);
-
-                // Debug.Log("hit");
+            }
         }
     }
 
