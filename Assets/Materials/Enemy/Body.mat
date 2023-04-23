@@ -11,8 +11,11 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 4fce8fd442e92c247828af270eeb7187, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_ValidKeywords:
+  - _STATE_NORMAL
+  m_InvalidKeywords:
+  - _ANGRY
+  - _STATE_A
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -37,16 +40,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _ANGRY: 1
+    - _AfraidSpeed: 2
     - _BasePower: 4
+    - _ColorAnimSpeed: 1.5
     - _DistortStrength: 1.63
     - _GradientHeight: -0.3
     - _GradientPower: 1.5
     - _NoiseScale: 4
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _STATE: 0
     m_Colors:
+    - _AfraidColor: {r: 64, g: 64, b: 64, a: 1}
     - _BaseColor: {r: 3.9390304, g: 0, b: 78.780304, a: 1}
-    - _BodyColor: {r: 4.6353927, g: 4.006012, b: 6.8831816, a: 1}
+    - _BodyColor: {r: 9.189588, g: 9.189588, b: 9.189588, a: 1}
     - _Smoothstep: {r: 35.63, g: 2.48, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5405300024814459427
