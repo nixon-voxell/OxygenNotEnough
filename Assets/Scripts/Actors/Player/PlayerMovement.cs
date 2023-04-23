@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(GameManager.Instance.GameState);
         if (GameManager.Instance.GameState != GameState.InProgress) return;
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -46,8 +45,8 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.Normalize();
 
         this.m_IsMoving = moveDirection.sqrMagnitude > 0.0f;
-        this.m_IsCrouching = Input.GetButton("Crouch");
-        this.m_IsUsingHelium = Input.GetButton("Jump");
+        this.m_IsCrouching = !Input.GetButton("Crouch");
+        this.m_IsUsingHelium = Input.GetButtonDown("Jump");
         
         if (this.m_IsMoving)
         {

@@ -52,14 +52,14 @@ public class Player : MonoBehaviour, IActor
         UIManager.Instance.OxygenUI.SetOxygen(oxygen);
     }
 
-    public void AddHelium()
+    public void AddHelium(int helium = 1)
     {
-        this.SetHelium(Mathf.Min(this.m_CurrHelium + 1, this.m_MaxHelium));
+        this.SetHelium(Mathf.Min(this.m_CurrHelium + helium, this.m_MaxHelium));
     }
 
-    public void RemoveHelium()
+    public void RemoveHelium(int helium = 1)
     {
-        this.SetHelium(Mathf.Max(this.m_CurrHelium - 1, 0));
+        this.SetHelium(Mathf.Max(this.m_CurrHelium - helium, 0));
     }
 
     public void SetHelium(int helium)
@@ -75,13 +75,11 @@ public class Player : MonoBehaviour, IActor
             // use time.deltatime to make sure damage is consistent
             this.RemoveOxygen(this.m_DamagePerSecond * Time.deltaTime);
         }
-        if(this.m_PlayerMovement.IsUsingHelium)
+
+        if (this.m_PlayerMovement.IsUsingHelium && this.CurrHelium > 0)
         {
-            this.m_CurrHelium ++;
             this.RemoveHelium();
-        } else
-        {
-            this.m_CurrHelium = 0;
+            // use helium...
         }
 
         SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving, this.m_PlayerMovement.IsCrouching);
@@ -91,23 +89,24 @@ public class Player : MonoBehaviour, IActor
 
     private void OnTriggerEnter(Collider collider)
     {
+        Tank tank;
         switch (collider.tag)
         {
             case "Oxygen":
-                OxygenTank oxygenTank = collider.GetComponent<OxygenTank>();
-                if (oxygenTank != null)
-                {
-                    this.AddOxygen(oxygenTank.OxygenAmount);
-                    oxygenTank.SwitchLocation();
-                } else
-                {
-                    Debug.LogError("No oxygen tank found but collider tag is set to 'Oxygen'.");
-                }
+                tank = collider.GetComponent<Tank>();
+                tank.SwitchLocation();
+                this.AddOxygen(tank.Amount);
 
                 break;
 
             case "Helium":
-                this.AddHelium();
+                if (this.CurrHelium < this.m_MaxHelium)
+                {
+                    tank = collider.GetComponent<Tank>();
+                    tank.SwitchLocation();
+                    this.AddHelium(tank.Amount);
+                }
+
                 break;
 
             case "Exit":

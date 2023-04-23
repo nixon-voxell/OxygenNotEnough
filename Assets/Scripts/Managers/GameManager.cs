@@ -23,9 +23,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player m_PlayerPrefab;
 
     [InspectOnly] public MazeGenerator MazeGenerator;
-    [InspectOnly] public OxygenSpawner OxygenSpawner;
     [InspectOnly] public EnemySpawner EnemySpawner;
-    [InspectOnly] public HeliumSpawner HeliumSpawner;
+    [InspectOnly] public TankSpawner TankSpawner;
+    // [InspectOnly] public OxygenSpawner OxygenSpawner;
+    // [InspectOnly] public HeliumSpawner HeliumSpawner;
 
     private Vignette m_Vignette;
     private float m_CurrVigIntensity;
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
 
         this.MazeGenerator.GenerateMaze();
         this.EnemySpawner.Spawn();
-        this.OxygenSpawner.Spawn();
+        this.TankSpawner.Spawn();
         this.Player.SpawnIn();
     }
 
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         this.MazeGenerator.HideAll();
         this.EnemySpawner.Despawn();
-        this.OxygenSpawner.Despawn();
+        this.TankSpawner.Despawn();
         this.Player.SpawnOut();
     }
 

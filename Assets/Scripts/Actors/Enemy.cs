@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using Voxell.Util;
 
 public class Enemy : MonoBehaviour, IActor
 {
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour, IActor
     [SerializeField] private float m_PursuitDuration;
     [SerializeField] private float m_VisualRange;
 
-    private float m_PursuitTime;
+    [SerializeField, InspectOnly] private float m_PursuitTime;
     private bool m_PursuitEndReset;
     private Vector3 m_Target;
     private Coroutine m_FindRandLocRoutine;
