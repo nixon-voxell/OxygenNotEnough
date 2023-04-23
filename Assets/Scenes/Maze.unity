@@ -374,7 +374,7 @@ MonoBehaviour:
   m_Height: 10
   m_Seed: 196
   m_TilePrefab: {fileID: 5486812947856625208, guid: d88b692c7be5bad4ebd4f140b3e421d4, type: 3}
-  m_WallPrefab: {fileID: 6038739247994132569, guid: 49978d7efaba1c14fb1bbb4b395029de, type: 3}
+  m_WallPrefab: {fileID: 8339657201917819122, guid: 49978d7efaba1c14fb1bbb4b395029de, type: 3}
   m_WallPercentage: 0.5
 --- !u!1 &2061568328
 GameObject:
@@ -487,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2061568328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
