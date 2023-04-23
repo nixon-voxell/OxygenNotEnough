@@ -298,7 +298,7 @@ MonoBehaviour:
   m_MainCamera: {fileID: 963194227}
   m_GlobalVolume: {fileID: 1963602350}
   m_VigAnimaSpeed: 2
-  m_PlayerPrefab: {fileID: 1928978588, guid: c5390bad63e8f12439cc0593cb3fc26b, type: 3}
+  m_PlayerPrefab: {fileID: 5358194420564856538, guid: 7cb3ac86327be234696458fa11788021, type: 3}
   MazeGenerator: {fileID: 0}
   EnemySpawner: {fileID: 0}
   TankSpawner: {fileID: 0}

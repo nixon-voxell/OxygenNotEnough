@@ -65,10 +65,10 @@ public class PlayerMovement : MonoBehaviour
         {
             if (this.m_IsCrouching)
             {
-                this.m_Animator.Play("Crouch");
+                this.m_Animator.Play("CrouchIdle");
             } else
             {
-                this.m_Animator.Play("Stand");
+                this.m_Animator.Play("Idle");
             }
         }
     }
