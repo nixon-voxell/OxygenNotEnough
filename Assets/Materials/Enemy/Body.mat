@@ -46,7 +46,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _BaseColor: {r: 3.9390304, g: 0, b: 78.780304, a: 1}
-    - _BodyColor: {r: 21.550001, g: 18.624, b: 32, a: 1}
+    - _BodyColor: {r: 4.6353927, g: 4.006012, b: 6.8831816, a: 1}
     - _Smoothstep: {r: 35.63, g: 2.48, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5405300024814459427

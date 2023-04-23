@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, IActor
     [Tooltip("Number of seconds that the enemy pursue the player before giving up.")]
     [SerializeField] private float m_PursuitDuration;
     [SerializeField] private float m_VisualRange;
+    [SerializeField] private float m_VisualRadius;
 
     [SerializeField, InspectOnly] private float m_PursuitTime;
     private bool m_PursuitEndReset;
@@ -55,6 +56,19 @@ public class Enemy : MonoBehaviour, IActor
 
         Transform selfTrans = this.transform;
 
+        // check if player is in front of the enemy
+        RaycastHit hit;
+        if (Physics.SphereCast(
+                selfTrans.position,
+                this.m_VisualRadius,
+                selfTrans.forward,
+                out hit,
+                this.m_VisualRange
+            ) && hit.collider.CompareTag("Player")
+        ) {
+            this.PursuitPlayer();
+        }
+
         // if in pursuit of enemy, set target destination to player location
         if (this.m_PursuitTime > 0.0f)
         {
@@ -70,24 +84,34 @@ public class Enemy : MonoBehaviour, IActor
                 this.ResetTarget();
             }
 
-            // check if player is in front of the enemy
-            RaycastHit hit;
-            if (Physics.SphereCast(
-                selfTrans.position, 0.3f, selfTrans.forward, out hit, this.m_VisualRange
-            ) && hit.collider.CompareTag("Player")) {
-                this.PursuitPlayer();
             // choose a random position when we reach the target position
-            } else
+            Vector2 selfVec2 = new Vector2(selfTrans.position.x, selfTrans.position.z);
+            Vector2 targetVec2 = new Vector2(this.m_Target.x, this.m_Target.z);
+            if (Vector2.SqrMagnitude(selfVec2 - targetVec2) < 0.5f)
             {
-                Vector2 selfVec2 = new Vector2(selfTrans.position.x, selfTrans.position.z);
-                Vector2 targetVec2 = new Vector2(this.m_Target.x, this.m_Target.z);
-                if (Vector2.SqrMagnitude(selfVec2 - targetVec2) < 0.5f)
-                {
-                    this.RestartFindRandLocRoutine();
-                }
+                this.RestartFindRandLocRoutine();
             }
         }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Transform selfTrans = this.transform;
+
+        RaycastHit hit;
+        bool successHit = Physics.SphereCast(
+            selfTrans.position, this.m_VisualRadius, selfTrans.forward, out hit, this.m_VisualRange
+        );
+
+        Gizmos.color = Color.red;
+        if (successHit)
+        {
+            Gizmos.DrawLine(selfTrans.position, hit.point);
+            Gizmos.DrawSphere(hit.point, 0.3f);
+        }
+    }
+#endif
 
     public void MoveToTarget(Vector3 target)
     {
@@ -104,7 +128,6 @@ public class Enemy : MonoBehaviour, IActor
 
     public void PursuitPlayer()
     {
-        Debug.Log("Pursuit Player");
         this.EndFindRandLocRoutine();
         this.m_PursuitTime = this.m_PursuitDuration;
         this.m_PursuitEndReset = false;
