@@ -1,37 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HeliumUI : MonoBehaviour
 {
-    public GameObject Helium1,Helium2,Helium3;
-    public void GetHelium(int helium_num)
-    {
-        if(helium_num == 0)
-        {
-            Helium1.GetComponent<Image>().color = new Color32(255,255,255,255);
-            Helium2.GetComponent<Image>().color = new Color32(255,255,255,255);
-            Helium3.GetComponent<Image>().color = new Color32(255,255,255,255);
-        }
-        else if(helium_num == 1)
-        {
-            Helium1.GetComponent<Image>().color = new Color32(255,0,0,255);
-            Helium2.GetComponent<Image>().color = new Color32(255,255,255,255);
-            Helium3.GetComponent<Image>().color = new Color32(255,255,255,255);
-        }
-        else if(helium_num == 2)
-        {
-            Helium1.GetComponent<Image>().color = new Color32(255,0,0,255);
-            Helium2.GetComponent<Image>().color = new Color32(255,0,0,255);
-            Helium3.GetComponent<Image>().color = new Color32(255,255,255,255);
+    [SerializeField] private Image[] m_HeliumImages;
+    [SerializeField] private Color m_BlankColor;
+    [SerializeField] private Color m_OccupiedColor;
 
-        }
-        else if(helium_num == 3)
+    public void SetHeliumNum(int heliumNum)
+    {
+        for (int h = 0; h < this.m_HeliumImages.Length; h++)
         {
-            Helium1.GetComponent<Image>().color = new Color32(255,0,0,255);
-            Helium2.GetComponent<Image>().color = new Color32(255,0,0,255);
-            Helium3.GetComponent<Image>().color = new Color32(255,0,0,255);
+            Image image = this.m_HeliumImages[h];
+            image.color = this.m_BlankColor;
         }
+
+        heliumNum = Mathf.Min(this.m_HeliumImages.Length, heliumNum);
+
+        for (int h = 0; h < heliumNum; h++)
+        {
+            Image image = this.m_HeliumImages[h];
+            image.color = this.m_OccupiedColor;
+        }
+    }
+
+    private void Start()
+    {
+        UIManager.Instance.HeliumUI = this;
     }
 }

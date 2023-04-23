@@ -1,15 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundEffect : MonoBehaviour
 {
     public static SoundEffect Instance;
-    public AudioSource Source,Source_walk,Source_release;
-    public AudioClip ButtonSounds;
-    public AudioClip GetOxygenSounds,WinSounds,LoseSounds;
 
-    private void Awake()
+    [SerializeField] public AudioSource m_Source, m_WalkSource, m_GasLeakSource;
+
+    [SerializeField] public AudioClip m_ClickButton;
+    [SerializeField] public AudioClip m_GetOxygen;
+    [SerializeField] private AudioClip m_Win, m_Lose;
+
+    private void Start()
     {
         if (Instance == null)
         {
@@ -23,27 +24,38 @@ public class SoundEffect : MonoBehaviour
 
     public void ButtonClicks()
     {
-        Source.PlayOneShot(ButtonSounds);
+        m_Source.PlayOneShot(m_ClickButton);
     }
-    public void Walk(bool state,bool iscrouch)
+
+    public void Walk(bool isMoving, bool iscrouch)
     {
-        if(state == true && iscrouch==false)
-            Source_walk.enabled = true;
-        else Source_walk.enabled = false;
+        bool shouldPlay = isMoving && !iscrouch;
+        this.PlayStopByState(this.m_WalkSource, shouldPlay);
     }
+
     public void GetOxygenTank()
     {
-        Source.PlayOneShot(GetOxygenSounds);
+        m_Source.PlayOneShot(m_GetOxygen);
     }
-    public void ReleaseOxygen(float oxygen,bool state)
+
+    public void ReleaseOxygen(bool isMoving)
     {
-        if(oxygen<50f && state==true)
-            Source_release.enabled = true;
-        else
-            Source_release.enabled = false;
+        this.PlayStopByState(this.m_GasLeakSource, isMoving);
     }
+
     public void Win()
     {
-        Source.PlayOneShot(WinSounds);
+        m_Source.PlayOneShot(m_Win);
+    }
+
+    private void PlayStopByState(AudioSource source, bool shouldPlay)
+    {
+        if (!source.isPlaying && shouldPlay)
+        {
+            source.Play();
+        } else if (source.isPlaying && !shouldPlay)
+        {
+            source.Stop();
+        }
     }
 }

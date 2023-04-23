@@ -151,5 +151,7 @@ MonoBehaviour:
   m_SpawnAnimSpeed: 3
   m_Agent: {fileID: 185912195248455863}
   m_PauseDuration: 3
-  m_PursuitDuration: 3
-  m_VisualRange: 2.5
+  m_PursuitDuration: 5
+  m_VisualRange: 5
+  m_VisualRadius: 0.4
+  m_PursuitTime: 0

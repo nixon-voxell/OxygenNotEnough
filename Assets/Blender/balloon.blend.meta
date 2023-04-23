@@ -1,9 +1,19 @@
 fileFormatVersion: 2
 guid: bed37cfda946923429683645b51ed7f9
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Balloon
+    second: {fileID: 2100000, guid: e47aa0d9ebf1b3c4bbb1efa883e74d58, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ribbons
+    second: {fileID: 2100000, guid: 8f7a479a4961f014d85e8ffccfbc9949, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -67,6 +77,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -99,6 +110,7 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

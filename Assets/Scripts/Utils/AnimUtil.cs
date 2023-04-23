@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class AnimUtil
 {
-    public static IEnumerator FloatUp(Transform trans, float startY, float targetY, float animSpeed, Action endAction = null)
+    public static IEnumerator MoveUp(Transform trans, float startY, float targetY, float animSpeed, Action endAction = null)
     {
         Vector3 position = trans.position;
         position.y = startY;
@@ -13,7 +13,25 @@ public static class AnimUtil
         {
             position.y = Mathf.Lerp(position.y, targetY, Time.deltaTime * animSpeed);
             trans.position = position;
-            yield return new WaitForEndOfFrame();
+            yield return null;
+        }
+
+        endAction?.Invoke();
+    }
+
+    public static IEnumerator ScaleDown(Transform trans, Vector3 startScale, Vector3 targetScale, float animSpeed, Action endAction = null)
+    {
+        Vector3 scale = trans.localScale;
+        scale = startScale;
+
+        while (
+            scale.x > targetScale.x + 0.01f ||
+            scale.y > targetScale.y + 0.01f ||
+            scale.z > targetScale.z + 0.01f
+        ) {
+            scale = Vector3.Lerp(scale, targetScale, Time.deltaTime * animSpeed);
+            trans.localScale = scale;
+            yield return null;
         }
 
         endAction?.Invoke();
