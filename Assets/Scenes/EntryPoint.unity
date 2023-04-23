@@ -660,10 +660,9 @@ MonoBehaviour:
   m_Source: {fileID: 1610397990}
   m_WalkSource: {fileID: 716012727}
   m_GasLeakSource: {fileID: 16861332}
-  m_ClickButton: {fileID: 8300000, guid: a7a332c38f033c64cadbaf4beb0f3745, type: 3}
   m_GetOxygen: {fileID: 8300000, guid: dfa66afe60418f342a8c76598116c4df, type: 3}
   m_Win: {fileID: 8300000, guid: 898c7cb7ee001f64a87d1692fc902746, type: 3}
-  m_Lose: {fileID: 8300000, guid: 0fa618c1c57a1a644a28e0281dd7b36f, type: 3}
+  m_Lose: {fileID: 8300000, guid: e90f4c29e93a4b74a8108f0ae54fc5b6, type: 3}
 --- !u!82 &1610397990
 AudioSource:
   m_ObjectHideFlags: 0
