@@ -5,10 +5,8 @@ public class SoundEffect : MonoBehaviour
     public static SoundEffect Instance;
 
     [SerializeField] public AudioSource m_Source, m_WalkSource, m_GasLeakSource;
-
-    [SerializeField] public AudioClip m_ClickButton;
     [SerializeField] public AudioClip m_GetOxygen;
-    [SerializeField] private AudioClip m_Win, m_Lose;
+    [SerializeField] public AudioClip m_Win, m_Lose;
 
     private void Start()
     {
@@ -22,10 +20,6 @@ public class SoundEffect : MonoBehaviour
         }
     }
 
-    public void ButtonClicks()
-    {
-        m_Source.PlayOneShot(m_ClickButton);
-    }
 
     public void Walk(bool isMoving, bool iscrouch)
     {
@@ -47,7 +41,10 @@ public class SoundEffect : MonoBehaviour
     {
         m_Source.PlayOneShot(m_Win);
     }
-
+    public void Lose()
+    {
+        m_Source.PlayOneShot(m_Lose);
+    }
     private void PlayStopByState(AudioSource source, bool shouldPlay)
     {
         if (!source.isPlaying && shouldPlay)
