@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour, IActor
 
     public void SpawnOut()
     {
+        this.StopAllCoroutines();
         this.ResetTarget();
         this.m_Agent.enabled = false;
         this.gameObject.SetActive(false);

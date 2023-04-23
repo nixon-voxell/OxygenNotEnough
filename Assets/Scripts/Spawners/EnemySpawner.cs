@@ -20,6 +20,7 @@ public class EnemySpawner : MonoBehaviour, ISpawner
 
     public void Despawn()
     {
+        this.StopAllCoroutines();
         for (int e = 0; e < this.m_EnemyPool.Count; e++)
         {
             Enemy enemy = this.m_EnemyPool.GetNextObject();
