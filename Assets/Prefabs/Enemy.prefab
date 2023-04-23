@@ -149,9 +149,16 @@ MonoBehaviour:
   m_SpawnStartY: -1
   m_SpawnEndY: 0.53
   m_SpawnAnimSpeed: 3
+  m_Renderer: {fileID: 8280044567416999841}
   m_Agent: {fileID: 185912195248455863}
   m_PauseDuration: 3
   m_PursuitDuration: 5
   m_VisualRange: 5
   m_VisualRadius: 0.4
   m_PursuitTime: 0
+  m_BodyMat: {fileID: 0}
+--- !u!23 &8280044567416999841 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -6652725513331149018, guid: fdc2bbc1b3684ea48b1e855358227d2e, type: 3}
+  m_PrefabInstance: {fileID: 5855917353895524487}
+  m_PrefabAsset: {fileID: 0}
