@@ -78,9 +78,9 @@ public class TankSpawner : MonoBehaviour, ISpawner
         int height = this.m_MazeOccupancy.GetLength(1) - 1;
         bool occupied = this.m_MazeOccupancy[x, y] != this.GetInstanceID();
         // start location
-        occupied = occupied && (x != 0 && y != 0);
+        occupied = occupied || (x == 0 && y == 0);
         // exit location
-        occupied = occupied && (x != width && y != height);
+        occupied = occupied || (x == width && y == height);
 
         return occupied;
     }

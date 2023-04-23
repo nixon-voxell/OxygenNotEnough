@@ -78,6 +78,16 @@ public class GameManager : MonoBehaviour
         this.Player.SpawnOut();
     }
 
+    public void Pause()
+    {
+        this.m_GameState = GameState.Idle;
+    }
+
+    public void Resume()
+    {
+        this.m_GameState = GameState.InProgress;
+    }
+
     public void Win()
     {
         this.m_GameState = GameState.Win;
