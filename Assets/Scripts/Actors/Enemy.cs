@@ -160,4 +160,6 @@ public class Enemy : MonoBehaviour, IActor
         // set coroutine to null when it ends
         this.m_FindRandLocRoutine = null;
     }
+
+    
 }

@@ -295,7 +295,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 51f85efae70ceeb459986c152a4e29d4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -782,9 +782,9 @@ AudioSource:
   m_GameObject: {fileID: 1610397986}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 737383b0b4bf1e34592f8df25e37df40, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -904,7 +904,7 @@ MonoBehaviour:
   m_GasLeakSource: {fileID: 16861332}
   m_GetOxygen: {fileID: 8300000, guid: dfa66afe60418f342a8c76598116c4df, type: 3}
   m_Win: {fileID: 8300000, guid: 898c7cb7ee001f64a87d1692fc902746, type: 3}
-  m_Lose: {fileID: 8300000, guid: 0fa618c1c57a1a644a28e0281dd7b36f, type: 3}
+  m_Lose: {fileID: 8300000, guid: e90f4c29e93a4b74a8108f0ae54fc5b6, type: 3}
 --- !u!1 &1963602349
 GameObject:
   m_ObjectHideFlags: 0
