@@ -82,6 +82,11 @@ public class Player : MonoBehaviour, IActor
             // use helium...
         }
 
+        if (this.m_CurrOxygen <=0)
+        {
+            GameManager.Instance.Lose();
+        }
+
         SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving, this.m_PlayerMovement.IsCrouching);
         SoundEffect.Instance.ReleaseOxygen(this.m_PlayerMovement.IsMoving);
         GameManager.Instance.SetVignetteIntensity(1.0f - this.CurrOxygen / this.MaxOxygen);

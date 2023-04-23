@@ -91,11 +91,17 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         this.m_GameState = GameState.Win;
+        SoundEffect.Instance.Win();
+
+        // show win ui
     }
 
     public void Lose()
     {
         this.m_GameState = GameState.Lose;
+        SoundEffect.Instance.Lose();
+        
+        // show lose ui
     }
 
     private void Awake()
