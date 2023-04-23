@@ -102,6 +102,8 @@ public class GameManager : MonoBehaviour
         SoundEffect.Instance.Lose();
         
         // show lose ui
+        this.EndGame();
+        this.StartGame();
     }
 
     private void Awake()
