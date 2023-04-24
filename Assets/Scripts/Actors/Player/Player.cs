@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private int m_MaxHelium = 3;
     [SerializeField] private int m_CurrHelium;
 
+
     public float MaxOxygen => this.m_MaxOxygen;
     public float CurrOxygen => this.m_CurrOxygen;
     public int CurrHelium => this.m_CurrHelium;
@@ -68,6 +69,18 @@ public class Player : MonoBehaviour, IActor
         UIManager.Instance.HeliumUI.SetHeliumNum(helium);
     }
 
+    private void CheckForDestructibles()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 0.2f);
+        foreach(Collider c in colliders)
+        {
+            if (c.CompareTag("Enemy"))
+            {
+                this.RemoveOxygen(this.m_DamagePerSecond * Time.deltaTime);
+            }
+        }
+    }
+
     private void Update()
     {
         if (this.m_PlayerMovement.IsMoving)
@@ -81,6 +94,14 @@ public class Player : MonoBehaviour, IActor
             this.RemoveHelium();
             // use helium...
         }
+
+        if (this.m_CurrOxygen <=0)
+        {
+            GameManager.Instance.Lose();
+            this.m_CurrOxygen = 100.0f;
+        }
+
+        this.CheckForDestructibles();
 
         SoundEffect.Instance.Walk(this.m_PlayerMovement.IsMoving, this.m_PlayerMovement.IsCrouching);
         SoundEffect.Instance.ReleaseOxygen(this.m_PlayerMovement.IsMoving);

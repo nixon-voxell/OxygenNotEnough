@@ -48,7 +48,7 @@ MonoBehaviour:
   m_SpawnInterval: 1
   m_EnemyPool:
     m_Original: {fileID: 6036979926981940450, guid: 3279150637ba20848b5645a5ecf00c50, type: 3}
-    m_Count: 3
+    m_Count: 12
 --- !u!114 &2801381691832274617
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +65,8 @@ MonoBehaviour:
   - SpawnInterval: 0.5
     Pool:
       m_Original: {fileID: 5987332802919496945, guid: 212d9733963bb2c4b9bcd131bafe7da3, type: 3}
-      m_Count: 5
+      m_Count: 20
   - SpawnInterval: 0.5
     Pool:
       m_Original: {fileID: 5987332802919496945, guid: a8befbbadf2c6af4291171749b1d857e, type: 3}
-      m_Count: 3
+      m_Count: 12

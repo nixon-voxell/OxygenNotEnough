@@ -78,14 +78,32 @@ public class GameManager : MonoBehaviour
         this.Player.SpawnOut();
     }
 
+    public void Pause()
+    {
+        this.m_GameState = GameState.Idle;
+    }
+
+    public void Resume()
+    {
+        this.m_GameState = GameState.InProgress;
+    }
+
     public void Win()
     {
         this.m_GameState = GameState.Win;
+        SoundEffect.Instance.Win();
+
+        // show win ui
     }
 
     public void Lose()
     {
         this.m_GameState = GameState.Lose;
+        SoundEffect.Instance.Lose();
+        
+        // show lose ui
+        this.EndGame();
+        this.StartGame();
     }
 
     private void Awake()

@@ -48,6 +48,7 @@ public class Tank : MonoBehaviour, IActor
 
     public void SpawnOut()
     {
+        this.StopAllCoroutines();
         this.gameObject.SetActive(false);
     }
 

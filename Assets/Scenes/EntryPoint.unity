@@ -298,7 +298,7 @@ MonoBehaviour:
   m_MainCamera: {fileID: 963194227}
   m_GlobalVolume: {fileID: 1963602350}
   m_VigAnimaSpeed: 2
-  m_PlayerPrefab: {fileID: 1928978588, guid: c5390bad63e8f12439cc0593cb3fc26b, type: 3}
+  m_PlayerPrefab: {fileID: 5358194420564856538, guid: 7cb3ac86327be234696458fa11788021, type: 3}
   MazeGenerator: {fileID: 0}
   EnemySpawner: {fileID: 0}
   TankSpawner: {fileID: 0}
@@ -660,10 +660,9 @@ MonoBehaviour:
   m_Source: {fileID: 1610397990}
   m_WalkSource: {fileID: 716012727}
   m_GasLeakSource: {fileID: 16861332}
-  m_ClickButton: {fileID: 8300000, guid: a7a332c38f033c64cadbaf4beb0f3745, type: 3}
   m_GetOxygen: {fileID: 8300000, guid: dfa66afe60418f342a8c76598116c4df, type: 3}
   m_Win: {fileID: 8300000, guid: 898c7cb7ee001f64a87d1692fc902746, type: 3}
-  m_Lose: {fileID: 8300000, guid: 0fa618c1c57a1a644a28e0281dd7b36f, type: 3}
+  m_Lose: {fileID: 8300000, guid: e90f4c29e93a4b74a8108f0ae54fc5b6, type: 3}
 --- !u!82 &1610397990
 AudioSource:
   m_ObjectHideFlags: 0
@@ -674,11 +673,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 737383b0b4bf1e34592f8df25e37df40, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 51f85efae70ceeb459986c152a4e29d4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

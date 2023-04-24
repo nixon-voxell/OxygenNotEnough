@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour, IActor
     [SerializeField] private float m_SpawnStartY;
     [SerializeField] private float m_SpawnEndY;
     [SerializeField] private float m_SpawnAnimSpeed;
+    [SerializeField] private MeshRenderer m_Renderer;
 
     [Header("Agent")]
     [SerializeField] private NavMeshAgent m_Agent;
@@ -20,9 +21,10 @@ public class Enemy : MonoBehaviour, IActor
     [SerializeField] private float m_VisualRadius;
 
     [SerializeField, InspectOnly] private float m_PursuitTime;
-    private bool m_PursuitEndReset;
+    private bool m_PursuitEndReset = true;
     private Vector3 m_Target;
     private Coroutine m_FindRandLocRoutine;
+    [SerializeField, InspectOnly] private Material m_BodyMat;
 
     public float PauseDuration => this.m_PauseDuration;
 
@@ -31,7 +33,6 @@ public class Enemy : MonoBehaviour, IActor
         this.gameObject.SetActive(true);
         this.m_PursuitTime = 0.0f;
         this.m_PursuitEndReset = false;
-        this.ResetTarget();
         this.m_Agent.enabled = false;
 
         this.StartCoroutine(AnimUtil.MoveUp(
@@ -39,12 +40,14 @@ public class Enemy : MonoBehaviour, IActor
             () =>
             {
                 this.m_Agent.enabled = true;
+                this.ResetTarget();
             }
         ));
     }
 
     public void SpawnOut()
     {
+        this.StopAllCoroutines();
         this.ResetTarget();
         this.m_Agent.enabled = false;
         this.gameObject.SetActive(false);
@@ -72,12 +75,14 @@ public class Enemy : MonoBehaviour, IActor
         // if in pursuit of enemy, set target destination to player location
         if (this.m_PursuitTime > 0.0f)
         {
+            this.AngryMaterial();
             Player player = GameManager.Instance.Player;
             this.MoveToTarget(player.transform.position);
 
             this.m_PursuitTime -= Time.deltaTime;
         } else
         {
+            this.NormalMaterial();
             // if not pursuing and not reset yet, reset target
             if (this.m_PursuitEndReset == false)
             {
@@ -159,5 +164,31 @@ public class Enemy : MonoBehaviour, IActor
 
         // set coroutine to null when it ends
         this.m_FindRandLocRoutine = null;
+    }
+
+    private void NormalMaterial()
+    {
+        this.m_BodyMat.EnableKeyword("_STATE_NORMAL");
+        this.m_BodyMat.DisableKeyword("_STATE_ANGRY");
+        this.m_BodyMat.DisableKeyword("_STATE_AFRAID");
+    }
+
+    private void AngryMaterial()
+    {
+        this.m_BodyMat.DisableKeyword("_STATE_NORMAL");
+        this.m_BodyMat.EnableKeyword("_STATE_ANGRY");
+        this.m_BodyMat.DisableKeyword("_STATE_AFRAID");
+    }
+
+    private void AfraidMaterial()
+    {
+        this.m_BodyMat.DisableKeyword("_STATE_NORMAL");
+        this.m_BodyMat.DisableKeyword("_STATE_ANGRY");
+        this.m_BodyMat.EnableKeyword("_STATE_AFRAID");
+    }
+
+    private void Awake()
+    {
+        this.m_BodyMat = this.m_Renderer.materials[0];
     }
 }
