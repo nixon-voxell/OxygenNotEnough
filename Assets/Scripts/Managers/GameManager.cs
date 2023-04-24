@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     private float m_TargetVigIntensity;
     private GameState m_GameState;
     private Player m_Player;
-
     public GameState GameState => this.m_GameState;
 
     public Camera MainCamera => this.m_MainCamera;
@@ -92,18 +91,19 @@ public class GameManager : MonoBehaviour
     {
         this.m_GameState = GameState.Win;
         SoundEffect.Instance.Win();
-
+        this.EndGame();
         // show win ui
+        UIManager.Instance.WinUI.GameWin();
+
     }
 
     public void Lose()
     {
         this.m_GameState = GameState.Lose;
         SoundEffect.Instance.Lose();
-        
-        // show lose ui
         this.EndGame();
-        this.StartGame();
+        // show lose ui     
+        UIManager.Instance.LoseUI.Gameover();
     }
 
     private void Awake()
@@ -139,10 +139,13 @@ public class GameManager : MonoBehaviour
             this.m_CurrVigIntensity = math.lerp(this.m_CurrVigIntensity, this.m_TargetVigIntensity, Time.deltaTime  * this.m_VigAnimaSpeed);
 
             this.Vignette.intensity.value = this.m_CurrVigIntensity;
+
         } else
         {
             // hard code to 0.1f, find this value not bad
             this.Vignette.intensity.value = 0.1f;
+
+            
         }
     }
 

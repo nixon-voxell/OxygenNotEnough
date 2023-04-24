@@ -1,21 +1,27 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
+    public GameOverMenu gameOverMenu;
     public void Gameover()
     {
-        gameObject.SetActive(true);
+        this.gameOverMenu.gameObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void Restart()
     {
-        SceneManager.LoadScene("MazeDemo 1");
+        GameManager.Instance.StartGame();
+        this.gameOverMenu.gameObject.SetActive(false);
+        Time.timeScale = 1f;
     }
 
 
     public void Quit()
     {
-        SceneManager.LoadScene("Menu");
+        GameManager.Instance.EndGame();
+        Time.timeScale = 1f;
     }
+    
 }
+

@@ -19,7 +19,7 @@ public class Player : MonoBehaviour, IActor
     public float MaxOxygen => this.m_MaxOxygen;
     public float CurrOxygen => this.m_CurrOxygen;
     public int CurrHelium => this.m_CurrHelium;
-
+    
     public void SpawnIn()
     {
         this.gameObject.SetActive(true);
