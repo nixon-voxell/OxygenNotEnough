@@ -94,6 +94,7 @@ MonoBehaviour:
   m_MaxOxygen: 100
   m_CurrOxygen: 0
   m_DamagePerSecond: 10
+  m_HeliumPrefab: {fileID: -7220029313129904350, guid: e1cd9ccb14a2ac14fbe3b8bae9dd8a78, type: 3}
   m_MaxHelium: 3
   m_CurrHelium: 0
 --- !u!1 &669107409339469446
