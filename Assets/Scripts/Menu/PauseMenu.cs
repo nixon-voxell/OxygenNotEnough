@@ -3,7 +3,7 @@ using UnityEngine;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenuUI;
-
+    private int timeofESC=0;
     public void Resume()
     {
         GameManager.Instance.Resume();
@@ -28,7 +28,9 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause();
+            if(timeofESC%2==0) this.Pause(); 
+            else this.Resume();         
+            timeofESC++;
         }
         
     }

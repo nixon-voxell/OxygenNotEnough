@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.GameState != GameState.InProgress) return;
+        if (GameManager.Instance.GameState != GameState.InProgress) return; 
 
         float horizontalInput = Input.GetAxisRaw("Horizontal");
         float verticalInput = Input.GetAxisRaw("Vertical");

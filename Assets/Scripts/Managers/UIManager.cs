@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 
     public OxygenUI OxygenUI;
     public HeliumUI HeliumUI;
+    public GameOverMenu LoseUI;
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class UIManager : MonoBehaviour
 
         this.OxygenUI.gameObject.SetActive(false);
         this.HeliumUI.gameObject.SetActive(false);
+        this.LoseUI.gameObject.SetActive(false);
     }
 
     private void Start()
