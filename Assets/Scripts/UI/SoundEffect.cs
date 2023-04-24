@@ -55,4 +55,13 @@ public class SoundEffect : MonoBehaviour
             source.Stop();
         }
     }
+    private void Update()
+    {
+        if(GameManager.Instance.GameState != GameState.InProgress)
+        {
+            this.m_GasLeakSource.Stop();
+            this.m_WalkSource.Stop();
+        } 
+
+    }
 }
