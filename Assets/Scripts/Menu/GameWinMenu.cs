@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class GameWinMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameWinMenu gameWinMenu;
+
+    public void GameWin()
     {
-        
+        this.gameWinMenu.gameObject.SetActive(true);
+        Time.timeScale = 0f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Restart()
     {
-        
+        GameManager.Instance.StartGame();
+        this.gameWinMenu.gameObject.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+
+    public void Quit()
+    {
+        GameManager.Instance.EndGame();
+        Time.timeScale = 1f;
     }
 }

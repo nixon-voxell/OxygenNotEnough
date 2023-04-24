@@ -92,8 +92,10 @@ public class GameManager : MonoBehaviour
     {
         this.m_GameState = GameState.Win;
         SoundEffect.Instance.Win();
-
+        this.EndGame();
         // show win ui
+        UIManager.Instance.WinUI.GameWin();
+
     }
 
     public void Lose()
