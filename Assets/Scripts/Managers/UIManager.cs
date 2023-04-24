@@ -29,11 +29,18 @@ public class UIManager : MonoBehaviour
 
     }
 
-    private void Start()
+    private void Update()
     {
+        GameManager gameManager = GameManager.Instance;
         for (int c = 0; c < this.m_Canvases.Length; c++)
         {
-            this.m_Canvases[c].worldCamera = GameManager.Instance.MainCamera;
+            if (gameManager.GameState == GameState.InProgress)
+            {
+                this.m_Canvases[c].worldCamera = gameManager.MainCamera;
+            } else
+            {
+                this.m_Canvases[c].worldCamera = gameManager.MainMenuCamera;
+            }
         }
     }
 }

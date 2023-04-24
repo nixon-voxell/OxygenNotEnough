@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private Camera m_MainCamera;
+    [SerializeField] private Camera m_MainMenuCamera;
     [SerializeField] private Volume m_GlobalVolume;
     [SerializeField] private float m_VigAnimaSpeed;
     [SerializeField] private Player m_PlayerPrefab;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     public GameState GameState => this.m_GameState;
 
     public Camera MainCamera => this.m_MainCamera;
+    public Camera MainMenuCamera => this.m_MainMenuCamera;
     public Volume GlobalVolume => this.m_GlobalVolume;
     public Vignette Vignette => this.m_Vignette;
 
@@ -139,13 +141,14 @@ public class GameManager : MonoBehaviour
             this.m_CurrVigIntensity = math.lerp(this.m_CurrVigIntensity, this.m_TargetVigIntensity, Time.deltaTime  * this.m_VigAnimaSpeed);
 
             this.Vignette.intensity.value = this.m_CurrVigIntensity;
-
+            this.m_MainCamera.enabled = true;
+            this.m_MainMenuCamera.enabled = false;
         } else
         {
             // hard code to 0.1f, find this value not bad
             this.Vignette.intensity.value = 0.1f;
-
-            
+            this.m_MainCamera.enabled = false;
+            this.m_MainMenuCamera.enabled = true;
         }
     }
 
