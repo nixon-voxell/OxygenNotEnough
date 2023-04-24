@@ -5,6 +5,12 @@ public class Player : MonoBehaviour, IActor
 {
     [SerializeField] private PlayerMovement m_PlayerMovement;
 
+    [Header("Enemy Detection Radius")]
+    [SerializeField] private MeshRenderer m_DetectionRenderer;
+    [SerializeField] private float m_EnemyDetectRadius;
+    [SerializeField] private float m_VizRadiusStart;
+    [SerializeField] private float m_VizRadiusEnd;
+
     [Header("Oxygen")]
     [SerializeField] private float m_MaxOxygen = 100.0f;
     [SerializeField] private float m_CurrOxygen;
@@ -15,6 +21,8 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private int m_MaxHelium = 3;
     [SerializeField] private int m_CurrHelium;
 
+    private Material m_mat_DetectionRadius;
+    private float m_DetectPercentage;
 
     public float MaxOxygen => this.m_MaxOxygen;
     public float CurrOxygen => this.m_CurrOxygen;
@@ -23,6 +31,7 @@ public class Player : MonoBehaviour, IActor
     public void SpawnIn()
     {
         this.gameObject.SetActive(true);
+        this.m_DetectPercentage = 0.0f;
 
         this.m_CurrOxygen = this.m_MaxOxygen;
         UIManager.Instance.OxygenUI.SetMaxOxygen(m_MaxOxygen);
@@ -31,6 +40,15 @@ public class Player : MonoBehaviour, IActor
         this.SetHelium(0);
 
         GameManager.Instance.MazeGenerator.PlaceObject(this.transform, 0, 0);
+
+        // deparent object
+        Vector3 playerScale = this.transform.localScale;
+        this.m_DetectionRenderer.transform.localScale = new Vector3(
+            this.m_EnemyDetectRadius * 2.0f / playerScale.x,
+            this.m_EnemyDetectRadius * 2.0f / playerScale.y,
+            this.m_EnemyDetectRadius * 2.0f / playerScale.z
+        );
+        this.m_mat_DetectionRadius = this.m_DetectionRenderer.sharedMaterial;
     }
 
     public void SpawnOut()
@@ -89,6 +107,32 @@ public class Player : MonoBehaviour, IActor
         {
             // use time.deltatime to make sure damage is consistent
             this.RemoveOxygen(this.m_DamagePerSecond * Time.deltaTime);
+        }
+
+        // if walking, display detection renderer, else reduce it
+        float targetDetectPercentage = this.m_PlayerMovement.IsCrouching ? 0.0f : 1.0f;
+        this.m_DetectPercentage = Mathf.Lerp(this.m_DetectPercentage, targetDetectPercentage, Time.deltaTime * 2.5f);
+
+        this.m_mat_DetectionRadius.SetFloat(
+            "_Radius",
+            Mathf.Lerp(this.m_VizRadiusStart, this.m_VizRadiusEnd, this.m_DetectPercentage)
+        );
+
+        if (!this.m_PlayerMovement.IsCrouching)
+        {
+            Collider[] colliders = Physics.OverlapSphere(
+                this.transform.position,
+                Mathf.Lerp(0.0f, this.m_EnemyDetectRadius, this.m_DetectPercentage)
+            );
+            for (int c = 0; c < colliders.Length; c++)
+            {
+                Collider collider = colliders[c];
+                if (collider.CompareTag("Enemy"))
+                {
+                    Enemy enemy = collider.GetComponent<Enemy>();
+                    enemy.PursuitPlayer();
+                }
+            }
         }
 
         if (this.m_PlayerMovement.IsUsingHelium && this.CurrHelium > 0)

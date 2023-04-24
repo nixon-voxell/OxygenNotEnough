@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using Unity.Collections;
 using Unity.Jobs;
@@ -61,13 +62,21 @@ public class MazeGenerator : MonoBehaviour
         int cellCount = this.m_Width * this.m_Height;
         int wallCount = (this.m_Width - 1) * this.m_Height + this.m_Width * (this.m_Height - 1);
 
-        this.m_Tile = Object.Instantiate(this.m_TilePrefab, this.transform);
+        if (this.m_Tile == null)
+        {
+            this.m_Tile = Object.Instantiate(this.m_TilePrefab, this.transform);
+        }
 
         const int SURROUND_WALL_COUNT = 4;
-        this.m_SurroundWallPool = new GameObject[SURROUND_WALL_COUNT];
-        for (int w = 0; w < SURROUND_WALL_COUNT; w++)
+
+        if (this.m_SurroundWallPool == null)
         {
-            this.m_SurroundWallPool[w] = Object.Instantiate(this.m_SurroundWallPrefab);
+            this.m_SurroundWallPool = new GameObject[SURROUND_WALL_COUNT];
+            for (int w = 0; w < SURROUND_WALL_COUNT; w++)
+            {
+                this.m_SurroundWallPool[w] = Object.Instantiate(this.m_SurroundWallPrefab);
+                SceneManager.MoveGameObjectToScene(this.m_SurroundWallPool[w], this.gameObject.scene);
+            }
         }
 
         this.m_WallPool = new GameObject[wallCount];
