@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IActor
 {
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour, IActor
     [SerializeField] private float m_DamagePerSecond;
 
     [Header("Helium")]
+    [SerializeField] private Helium m_HeliumPrefab;
     [SerializeField] private int m_MaxHelium = 3;
     [SerializeField] private int m_CurrHelium;
 
@@ -93,9 +95,12 @@ public class Player : MonoBehaviour, IActor
         {
             this.RemoveHelium();
             // use helium...
+            Helium helium = Object.Instantiate(this.m_HeliumPrefab, this.transform.position, Quaternion.identity);
+            helium.SpawnIn();
+            SceneManager.MoveGameObjectToScene(helium.gameObject, this.gameObject.scene);
         }
 
-        if (this.m_CurrOxygen <=0)
+        if (this.m_CurrOxygen <= 0)
         {
             GameManager.Instance.Lose();
             this.m_CurrOxygen = 100.0f;

@@ -25,6 +25,7 @@ public class Enemy : MonoBehaviour, IActor
     private Vector3 m_Target;
     private Coroutine m_FindRandLocRoutine;
     [SerializeField, InspectOnly] private Material m_BodyMat;
+    private bool m_Stunt;
 
     public float PauseDuration => this.m_PauseDuration;
 
@@ -56,6 +57,13 @@ public class Enemy : MonoBehaviour, IActor
     private void Update()
     {
         if (this.m_Agent.enabled == false) return;
+
+        if (this.m_Stunt)
+        {
+            this.m_Stunt = false;
+            this.ResetTarget();
+            return;
+        }
 
         Transform selfTrans = this.transform;
 
@@ -136,6 +144,12 @@ public class Enemy : MonoBehaviour, IActor
         this.EndFindRandLocRoutine();
         this.m_PursuitTime = this.m_PursuitDuration;
         this.m_PursuitEndReset = false;
+    }
+
+    public void Stunt()
+    {
+        this.m_Stunt = true;
+        this.AfraidMaterial();
     }
 
     private void EndFindRandLocRoutine()

@@ -62,11 +62,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SpawnerData:
-  - SpawnInterval: 0.5
+  - SpawnInterval: 0.01
     Pool:
       m_Original: {fileID: 5987332802919496945, guid: 212d9733963bb2c4b9bcd131bafe7da3, type: 3}
       m_Count: 20
-  - SpawnInterval: 0.5
+  - SpawnInterval: 0.01
     Pool:
       m_Original: {fileID: 5987332802919496945, guid: a8befbbadf2c6af4291171749b1d857e, type: 3}
       m_Count: 12
