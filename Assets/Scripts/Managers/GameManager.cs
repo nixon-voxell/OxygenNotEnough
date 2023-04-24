@@ -72,10 +72,10 @@ public class GameManager : MonoBehaviour
     {
         this.m_GameState = GameState.Idle;
 
-        this.MazeGenerator.HideAll();
         this.EnemySpawner.Despawn();
         this.TankSpawner.Despawn();
         this.Player.SpawnOut();
+        this.MazeGenerator.HideAll();
     }
 
     public void Pause()
